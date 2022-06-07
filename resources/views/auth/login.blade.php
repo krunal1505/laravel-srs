@@ -20,11 +20,17 @@
 <body class="hold-transition login-page">
 <div class="login-box">
     @if(session('success'))
-{{--        <h1>{{session('success')}}</h1>--}}
+        <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h5><i class="icon fas fa-check"></i> Success!</h5>
+            {{session('success')}}
+        </div>
+    @endif
+    @if(session('danger'))
         <div class="alert alert-danger alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
             <h5><i class="icon fas fa-ban"></i> Alert!</h5>
-            {{session('success')}}
+            {{session('danger')}}
         </div>
     @endif
     <div class="card card-outline card-primary">
@@ -64,9 +70,9 @@
                 </div>
             </form>
 
-            <p class="mb-0">
+            {{--<p class="mb-0">
                 <a href="{{ URL::route('register-user') }}" class="text-center">Register user</a>
-            </p>
+            </p>--}}
         </div>
         <!-- /.card-body -->
     </div>

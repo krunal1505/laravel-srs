@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use Hash;
 use Session;
@@ -11,7 +12,10 @@ class AuthController extends Controller
 {
     public function index()
     {
-        return view('auth.login');
+        if (!Auth::check()) {
+            return view('auth.login');
+        }
+        return redirect("/");
     }
 
     public function customLogin(Request $request)
@@ -23,35 +27,21 @@ class AuthController extends Controller
 
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('dashboard')
-                ->withSuccess('Signed in');
+            return redirect()->intended('/')->with('success', 'You have signed-in');
         }
 
-        return redirect("login")->withSuccess('Login details are not valid');
+        return redirect("login")->with('danger', 'Login details are not valid');
     }
 
-    public function registration()
+    public function signOut()
     {
-        return view('auth.registration');
+        Session::flush();
+        Auth::logout();
+
+        return Redirect('login')->with('success', 'You have signed-out');
     }
 
-    public function customRegistration(Request $request)
-    {
-        $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
-            'phone' => 'required'
-        ]);
-
-        $data = $request->all();
-        $check = $this->create($data);
-
-        return redirect("dashboard")->withSuccess('You have signed-in');
-    }
-
-    public function create(array $data)
+    /*public function create(array $data)
     {
         return User::create([
             'first_name' => $data['first_name'],
@@ -60,21 +50,5 @@ class AuthController extends Controller
             'password' => Hash::make($data['password']),
             'phone' => $data['phone']
         ]);
-    }
-
-    public function dashboard()
-    {
-        if(Auth::check()){
-            return 'Logged in';
-        }
-
-        return redirect("login")->withSuccess('You are not allowed to access');
-    }
-
-    public function signOut() {
-        Session::flush();
-        Auth::logout();
-
-        return Redirect('login');
-    }
+    }*/
 }
