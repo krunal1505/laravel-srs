@@ -23,7 +23,7 @@
                     <i class="fas fa-user-alt mr-2"></i> Profile
                 </a>
                 <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
+                <a href="{{ URL::route('signout') }}" class="dropdown-item">
                     <i class="fas fa-power-off mr-2"></i> Logout
                 </a>
             </div>
