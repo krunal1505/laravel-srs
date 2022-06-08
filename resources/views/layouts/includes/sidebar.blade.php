@@ -33,6 +33,7 @@ $path = Route::getFacadeRoot()->current()->uri();
                         </p>
                     </a>
                 </li>
+                @if($user->user_type == 'admin')
                 <li class="nav-item">
                     <a href="{{ URL::route('employees') }}" class="nav-link @if($path == 'employees') active @endif">
                         <i class="nav-icon fas fa-users"></i>
@@ -41,6 +42,7 @@ $path = Route::getFacadeRoot()->current()->uri();
                         </p>
                     </a>
                 </li>
+                @endif
             </ul>
         </nav>
     </div>

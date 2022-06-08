@@ -26,7 +26,7 @@ class AuthController extends Controller
         ]);
 
         $credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'status' => 'active'])) {
             return redirect()->intended('/')->with('success', 'You have signed-in');
         }
 
