@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GeneralController;
+use App\Http\Controllers\EmployeeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,9 +21,14 @@ use App\Http\Controllers\GeneralController;
 });*/
 Route::get('login', [AuthController::class, 'index'])->name('login');
 Route::post('custom-login', [AuthController::class, 'customLogin'])->name('login.custom');
-Route::get('registration', [AuthController::class, 'registration'])->name('register-user');
-Route::post('custom-registration', [AuthController::class, 'customRegistration'])->name('register.custom');
 Route::get('signout', [AuthController::class, 'signOut'])->name('signout');
 
 Route::get('/', [GeneralController::class, 'dashboard'])->name('dashboard');
 Route::get('profile', [GeneralController::class, 'profile'])->name('profile');
+
+Route::get('employees', [EmployeeController::class, 'index'])->name('employees');
+Route::get('employees/create', [EmployeeController::class, 'create'])->name('employees-create');
+Route::post('employees/save', [EmployeeController::class, 'save'])->name('employees.save');
+Route::get('employees/{id}/edit', [EmployeeController::class, 'edit'])->name('employees-edit');
+Route::post('employees/{id}/update', [EmployeeController::class, 'update'])->name('employees.update');
+Route::delete('employees/{id}/destroy', [EmployeeController::class, 'destroy'])->name('employees.destroy');
