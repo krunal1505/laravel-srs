@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Employees</h1>
+                    <h1 class="m-0">Agents</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ URL::route('dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Employees</li>
+                        <li class="breadcrumb-item active">Agents</li>
                     </ol>
                 </div>
             </div>
@@ -41,11 +41,11 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-6">
-                                    <h4>Employees List</h4>
+                                    <h4>Agents List</h4>
                                 </div>
                                 <div class="col-6">
                                     <div class="float-right">
-                                        <a href="{{ URL::route('employees-create') }}"
+                                        <a href="{{ URL::route('agents-create') }}"
                                            class="btn btn-success">Create</a>
                                     </div>
                                 </div>
@@ -66,15 +66,15 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($employees as $employee)
+                                @foreach($agents as $agent)
                                     <tr>
                                         <td>{{$loop->index + 1}}</td>
-                                        <td>{{$employee->first_name}}</td>
-                                        <td>{{$employee->last_name}}</td>
-                                        <td>{{$employee->email}}</td>
-                                        <td>{{$employee->phone}}</td>
+                                        <td>{{$agent->first_name}}</td>
+                                        <td>{{$agent->last_name}}</td>
+                                        <td>{{$agent->email}}</td>
+                                        <td>{{$agent->phone}}</td>
                                         <td>
-                                            @if($employee->status == 'active')
+                                            @if($agent->status == 'active')
                                                 <span class="badge bg-success">Active</span>
                                             @else
                                                 <span class="badge bg-danger">In-Active</span>
@@ -82,11 +82,11 @@
                                         </td>
                                         <td class="text-right">
                                             <div class="btn-group">
-                                                <a href="{{ URL::route('employees-edit', $employee->id) }}"
+                                                <a href="{{ URL::route('agents-edit', $agent->id) }}"
                                                    class="btn btn-warning btn-flat">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
-                                                <form action="{{URL::route('employees.destroy', $employee->id)}}"
+                                                <form action="{{URL::route('agents.destroy', $agent->id)}}"
                                                       method="post">
                                                     @csrf
                                                     @method('DELETE')

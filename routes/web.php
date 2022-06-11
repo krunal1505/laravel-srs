@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\AgentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,3 +33,11 @@ Route::post('employees/save', [EmployeeController::class, 'save'])->name('employ
 Route::get('employees/{id}/edit', [EmployeeController::class, 'edit'])->name('employees-edit');
 Route::post('employees/{id}/update', [EmployeeController::class, 'update'])->name('employees.update');
 Route::delete('employees/{id}/destroy', [EmployeeController::class, 'destroy'])->name('employees.destroy');
+
+Route::get('agents', [AgentController::class, 'index'])->name('agents');
+Route::get('agents/create', [AgentController::class, 'create'])->name('agents-create');
+Route::post('agents/save', [AgentController::class, 'save'])->name('agents.save');
+Route::get('agents/{id}/edit', [AgentController::class, 'edit'])->name('agents-edit');
+Route::post('agents/{id}/update', [AgentController::class, 'update'])->name('agents.update');
+Route::delete('agents/{id}/destroy', [AgentController::class, 'destroy'])->name('agents.destroy');
+Route::post('api/fetch-provinces', [AgentController::class, 'fetch_provinces'])->name('fetch-provinces');

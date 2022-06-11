@@ -24,7 +24,7 @@
         <div class="container-fluid">
             <div class="row justify-content-md-center">
                 <div class="col-lg-8 col-xs-12">
-                    <div class="card card-primary">
+                    <div class="card card-default">
                         <div class="card-header">
                             <h3 class="card-title">Create New Employee</h3>
                         </div>
@@ -96,7 +96,7 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Save</button>
+                                <button type="submit" class="btn btn-success">Save</button>
                                 <a href="{{ URL::route('employees') }}" class="btn btn-danger float-right">Cancel</a>
                             </div>
                             <!-- /.card-footer -->
