@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\AgentController;
+use App\Http\Controllers\ProgramController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,3 +42,9 @@ Route::get('agents/{id}/edit', [AgentController::class, 'edit'])->name('agents-e
 Route::post('agents/{id}/update', [AgentController::class, 'update'])->name('agents.update');
 Route::delete('agents/{id}/destroy', [AgentController::class, 'destroy'])->name('agents.destroy');
 Route::post('api/fetch-provinces', [AgentController::class, 'fetch_provinces'])->name('fetch-provinces');
+
+Route::get('programs', [ProgramController::class, 'index'])->name('programs');
+Route::post('programs/save', [ProgramController::class, 'save'])->name('programs.save');
+Route::post('programs/edit', [ProgramController::class, 'edit'])->name('programs-edit');
+Route::post('programs/update', [ProgramController::class, 'update'])->name('programs.update');
+Route::delete('programs/{id}/destroy', [ProgramController::class, 'destroy'])->name('programs.destroy');
