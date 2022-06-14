@@ -59,6 +59,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Program Name</th>
+                                    <th>Fees</th>
                                     <th>Status</th>
                                     <th class="text-right">Actions</th>
                                 </tr>
@@ -68,6 +69,7 @@
                                     <tr>
                                         <td>{{$loop->index + 1}}</td>
                                         <td>{{$program->program_name}}</td>
+                                        <td>${{$program->fees}}</td>
                                         <td>
                                             @if($program->status == 'active')
                                                 <span class="badge bg-success">Active</span>
@@ -134,6 +136,15 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label for="fees" class="col-sm-2 col-form-label">Fees</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="fees" name="fees" min="0">
+                                @if ($errors->has('fees'))
+                                    <span class="text-danger">{{ $errors->first('fees') }}</span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label for="password" class="col-sm-2 col-form-label">Status</label>
                             <div class="col-sm-10">
                                 <div class="custom-control custom-radio">
@@ -184,6 +195,15 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label for="fees" class="col-sm-2 col-form-label">Fees</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="edit_fees" name="fees" min="0">
+                                @if ($errors->has('fees'))
+                                    <span class="text-danger">{{ $errors->first('fees') }}</span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label for="password" class="col-sm-2 col-form-label">Status</label>
                             <div class="col-sm-10">
                                 <div class="custom-control custom-radio">
@@ -224,15 +244,9 @@
                     dataType: 'json',
                     success: function (result) {
                         $('#editProgramModel').modal('show')
-                        // console.log(result[0]);
                         $('#id').val(result[0].id);
                         $('#edit_program_name').val(result[0].program_name);
-                        /*$('#province_id').html('<option value="" selected disabled>--- Select State ---</option>');
-                        $.each(result.provinces, function (key, value) {
-                            $("#province_id").append(
-                                `<option value="${value.id}">${value.name}</option>`
-                            );
-                        });*/
+                        $('#edit_fees').val(result[0].fees);
                     }
                 });
             });

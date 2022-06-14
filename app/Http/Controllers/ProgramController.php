@@ -22,12 +22,14 @@ class ProgramController extends Controller
     {
         if (Auth::check()) {
             $request->validate([
-                'program_name' => 'required'
+                'program_name' => 'required',
+                'fees' => 'required'
             ]);
             /*$data = $request->all();
             dd($data);*/
             $data = array(
                 'program_name' => $request->program_name,
+                'fees' => $request->fees,
                 'status' => $request->status
             );
             /*dd($data);*/
@@ -48,10 +50,12 @@ class ProgramController extends Controller
     {
         if (Auth::check()) {
             $request->validate([
-                'program_name' => 'required'
+                'program_name' => 'required',
+                'fees' => 'required'
             ]);
             $data = array(
                 'program_name' => $request->program_name,
+                'fees' => $request->fees,
                 'status' => $request->status
             );
 

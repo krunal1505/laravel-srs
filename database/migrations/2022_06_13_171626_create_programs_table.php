@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('programs', function (Blueprint $table) {
             $table->id();
             $table->string('program_name');
+            $table->integer('fees');
             $table->enum('status', ['active', 'inactive']);
             $table->timestamps();
         });
