@@ -52,9 +52,17 @@ $path = Route::getFacadeRoot()->current()->uri();
                 </li>
                 <li class="nav-item">
                     <a href="{{ URL::route('programs') }}" class="nav-link @if($path == 'programs') active @endif">
-                        <i class="nav-icon fas fa-suitcase"></i>
+                        <i class="nav-icon fas fa-book"></i>
                         <p>
                             Programs
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ URL::route('intakes') }}" class="nav-link @if($path == 'intakes') active @endif">
+                        <i class="nav-icon fas fa-calendar"></i>
+                        <p>
+                            Intakes
                         </p>
                     </a>
                 </li>

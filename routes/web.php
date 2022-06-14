@@ -6,6 +6,7 @@ use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\IntakeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,3 +49,7 @@ Route::post('programs/save', [ProgramController::class, 'save'])->name('programs
 Route::post('programs/edit', [ProgramController::class, 'edit'])->name('programs-edit');
 Route::post('programs/update', [ProgramController::class, 'update'])->name('programs.update');
 Route::delete('programs/{id}/destroy', [ProgramController::class, 'destroy'])->name('programs.destroy');
+
+Route::get('intakes', [IntakeController::class, 'index'])->name('intakes');
+Route::post('intakes/save', [IntakeController::class, 'save'])->name('intakes.save');
+Route::delete('intakes/{id}/destroy', [IntakeController::class, 'destroy'])->name('intakes.destroy');
