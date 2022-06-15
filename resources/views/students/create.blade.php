@@ -6,13 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Create Agent</h1>
+                    <h1 class="m-0">Register new Student</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ URL::route('dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="{{ URL::route('agents') }}">Agents</a></li>
-                        <li class="breadcrumb-item active">Create Agent</li>
+                        <li class="breadcrumb-item active">Create Student</li>
                     </ol>
                 </div>
             </div>
@@ -26,7 +25,7 @@
                 <div class="col-lg-12 col-xs-12">
                     <div class="card card-default">
                         <div class="card-header">
-                            <h3 class="card-title">Create New Agent</h3>
+                            <h3 class="card-title">Register new Student</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
@@ -137,7 +136,7 @@
                                                 <select class="form-control" id="country_id" name="country_id">
                                                     <option value="" disabled selected>--- Select One ---</option>
                                                     @foreach($countries as $country)
-                                                    <option value="{{$country->id}}">{{$country->name}}</option>
+                                                        <option value="{{$country->id}}">{{$country->name}}</option>
                                                     @endforeach
                                                 </select>
                                                 @if ($errors->has('country_id'))

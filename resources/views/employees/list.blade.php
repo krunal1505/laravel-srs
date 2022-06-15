@@ -46,7 +46,7 @@
                                 <div class="col-6">
                                     <div class="float-right">
                                         <a href="{{ URL::route('employees-create') }}"
-                                           class="btn btn-success">Create</a>
+                                           class="btn btn-success"><i class="icon fas fa-plus"></i> Create</a>
                                     </div>
                                 </div>
                             </div>

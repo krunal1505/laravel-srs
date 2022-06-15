@@ -46,7 +46,7 @@
                                 <div class="col-6">
                                     <div class="float-right">
                                         <button type="button" class="btn btn-success"
-                                                data-toggle="modal" data-target="#addProgram">Create
+                                                data-toggle="modal" data-target="#addProgram"><i class="icon fas fa-plus"></i> Create
                                         </button>
                                     </div>
                                 </div>
@@ -161,8 +161,10 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-primary"><i class="icon fas fa-save"></i> Save</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">
+                            <i class="icon fas fa-backspace"></i> Close
+                        </button>
                     </div>
                 </div>
             </form>
@@ -220,8 +222,10 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-primary"><i class="icon fas fa-save"></i> Save</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">
+                            <i class="icon fas fa-backspace"></i> Close
+                        </button>
                     </div>
                 </div>
             </form>

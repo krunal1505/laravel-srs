@@ -7,6 +7,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\IntakeController;
+use App\Http\Controllers\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,3 +54,5 @@ Route::delete('programs/{id}/destroy', [ProgramController::class, 'destroy'])->n
 Route::get('intakes', [IntakeController::class, 'index'])->name('intakes');
 Route::post('intakes/save', [IntakeController::class, 'save'])->name('intakes.save');
 Route::delete('intakes/{id}/destroy', [IntakeController::class, 'destroy'])->name('intakes.destroy');
+
+Route::get('students-create', [StudentController::class, 'create'])->name('students.create');

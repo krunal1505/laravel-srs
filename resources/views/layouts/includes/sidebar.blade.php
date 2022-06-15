@@ -1,6 +1,6 @@
 @php
-$user = Auth::user();
-$path = Route::getFacadeRoot()->current()->uri();
+    $user = Auth::user();
+    $path = Route::getFacadeRoot()->current()->uri();
 @endphp
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -34,39 +34,70 @@ $path = Route::getFacadeRoot()->current()->uri();
                     </a>
                 </li>
                 @if($user->user_type == 'admin')
-                <li class="nav-item">
-                    <a href="{{ URL::route('employees') }}" class="nav-link @if($path == 'employees') active @endif">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>
-                            Employees
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ URL::route('agents') }}" class="nav-link @if($path == 'agents') active @endif">
-                        <i class="nav-icon fas fa-suitcase"></i>
-                        <p>
-                            Agents
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ URL::route('programs') }}" class="nav-link @if($path == 'programs') active @endif">
-                        <i class="nav-icon fas fa-book"></i>
-                        <p>
-                            Programs
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ URL::route('intakes') }}" class="nav-link @if($path == 'intakes') active @endif">
-                        <i class="nav-icon fas fa-calendar"></i>
-                        <p>
-                            Intakes
-                        </p>
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a href="{{ URL::route('employees') }}"
+                           class="nav-link @if($path == 'employees') active @endif">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>
+                                Employees
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ URL::route('agents') }}" class="nav-link @if($path == 'agents') active @endif">
+                            <i class="nav-icon fas fa-suitcase"></i>
+                            <p>
+                                Agents
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ URL::route('programs') }}" class="nav-link @if($path == 'programs') active @endif">
+                            <i class="nav-icon fas fa-book"></i>
+                            <p>
+                                Programs
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ URL::route('intakes') }}" class="nav-link @if($path == 'intakes') active @endif">
+                            <i class="nav-icon fas fa-calendar"></i>
+                            <p>
+                                Intakes
+                            </p>
+                        </a>
+                    </li>
                 @endif
+                <li class="nav-item ">
+                    <a href="#" class="nav-link @if($path == 'students-create') active @endif"> {{--active--}}
+                        <i class="nav-icon fas fa-user-graduate"></i>
+                        <p>
+                            Students
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview" style="@if($path == 'students-create') display: block; @endif">
+                        <li class="nav-item">
+                            <a href="{{ URL::route('students.create') }}"
+                               class="nav-link @if($path == 'students-create') active @endif"> {{--active--}}
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Register Student</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="./index2.html" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>New Students</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="./index3.html" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Enrolled Students</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
     </div>

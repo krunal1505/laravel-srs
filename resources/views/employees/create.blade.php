@@ -96,8 +96,10 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-success">Save</button>
-                                <a href="{{ URL::route('employees') }}" class="btn btn-danger float-right">Cancel</a>
+                                <button type="submit" class="btn btn-success"><i class="icon fas fa-save"></i> Save</button>
+                                <a href="{{ URL::route('employees') }}" class="btn btn-danger float-right">
+                                    <i class="icon fas fa-backspace"></i>  Cancel
+                                </a>
                             </div>
                             <!-- /.card-footer -->
                         </form>
