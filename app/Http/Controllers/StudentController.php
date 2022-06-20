@@ -16,7 +16,7 @@ class StudentController extends Controller
         if (Auth::check()) {
             $user_type = Auth::user()->user_type;
             $programs = Program::get();
-            $intakes = Intake::get();
+            $intakes = Intake::where('start_date', '>=', date('Y-m-d'))->get();
             $countries = Country::get();
             return view('students.create', compact('programs', 'intakes', 'countries', 'user_type'));
         }
@@ -38,6 +38,8 @@ class StudentController extends Controller
                 'province_id' => 'required',
                 'city' => 'required',
                 'postal_code' => 'required',
+                'program_id' => 'required',
+                'intake_id' => 'required',
                 'passport' => 'required|mimes:jpg,jpeg,png,pdf',
                 'ielts' => 'required|mimes:jpg,jpeg,png,pdf',
                 'education_documents' => 'required|mimes:jpg,jpeg,png,pdf'
@@ -92,6 +94,8 @@ class StudentController extends Controller
                 'state_id' => $request->province_id,
                 'city' => $request->city,
                 'postal_code' => $request->postal_code,
+                'program_id' => $request->program_id,
+                'intake_id' => $request->intake_id,
                 'passport' => $passportToStore,
                 'ielts' => $ieltsToStore,
                 'education_documents' => $education_documentsToStore,

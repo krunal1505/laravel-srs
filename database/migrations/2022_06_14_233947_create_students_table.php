@@ -27,6 +27,8 @@ return new class extends Migration
             $table->integer('state_id');
             $table->string('city');
             $table->string('postal_code');
+            $table->integer('program_id');
+            $table->integer('intake_id');
             $table->string('passport');
             $table->string('ielts');
             $table->string('education_documents');

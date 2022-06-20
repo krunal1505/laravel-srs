@@ -192,6 +192,45 @@
                                     </div>
                                     <div class="col-lg-12 col-xs-12">
                                         <hr>
+                                        <h4><b>Program Details</b></h4>
+                                        <hr>
+                                    </div>
+                                    <div class="col-lg-6 col-xs-12">
+                                        <div class="form-group row">
+                                            <label for="program_id" class="col-sm-2 col-form-label">Program</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" id="program_id" name="program_id">
+                                                    <option value="" disabled selected>--- Select One ---</option>
+                                                    @foreach($programs as $program)
+                                                        <option value="{{$program->id}}">{{$program->program_name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                @if ($errors->has('program_id'))
+                                                    <span class="text-danger">{{ $errors->first('program_id') }}</span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-xs-12">
+                                        <div class="form-group row">
+                                            <label for="intake_id" class="col-sm-2 col-form-label">Intake</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" id="intake_id" name="intake_id">
+                                                    <option value="" disabled selected>--- Select One ---</option>
+                                                    @foreach($intakes as $intake)
+                                                        <option value="{{$intake->id}}">
+                                                            {{$intake->start_date}} to {{$intake->end_date}}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                @if ($errors->has('intake_id'))
+                                                    <span class="text-danger">{{ $errors->first('intake_id') }}</span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-xs-12">
+                                        <hr>
                                         <h4><b>Documents</b></h4>
                                         <hr>
                                     </div>

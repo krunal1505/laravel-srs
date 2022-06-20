@@ -22,6 +22,8 @@ class Student extends Model
         'state_id',
         'city',
         'postal_code',
+        'program_id',
+        'intake_id',
         'passport',
         'ielts',
         'education_documents',
