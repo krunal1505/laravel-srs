@@ -55,4 +55,5 @@ Route::get('intakes', [IntakeController::class, 'index'])->name('intakes');
 Route::post('intakes/save', [IntakeController::class, 'save'])->name('intakes.save');
 Route::delete('intakes/{id}/destroy', [IntakeController::class, 'destroy'])->name('intakes.destroy');
 
-Route::get('students-create', [StudentController::class, 'create'])->name('students.create');
+Route::get('students/create', [StudentController::class, 'create'])->name('students.create');
+Route::post('students/save', [StudentController::class, 'save'])->name('students.save');

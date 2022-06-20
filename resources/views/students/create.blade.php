@@ -29,13 +29,16 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form class="form-horizontal" action="{{ route('agents.save') }}" method="post">
+                        <form class="form-horizontal" action="{{ route('students.save') }}" method="post"
+                              enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-lg-6 col-xs-12">
-                                        <h3><b>Personal Info</b></h3>
+                                    <div class="col-lg-12 col-xs-12">
+                                        <h4><b>Student Info</b></h4>
                                         <hr>
+                                    </div>
+                                    <div class="col-lg-6 col-xs-12">
                                         <div class="form-group row">
                                             <label for="first_name" class="col-sm-2 col-form-label">First Name</label>
                                             <div class="col-sm-9">
@@ -46,6 +49,37 @@
                                                 @endif
                                             </div>
                                         </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Gender</label>
+                                            <div class="col-sm-9">
+                                                <div class="form-group clearfix mt-2 mb-0">
+                                                    <div class="icheck-primary d-inline">
+                                                        <input type="radio" id="radioPrimary1" name="gender" checked=""
+                                                               value="male">
+                                                        <label for="radioPrimary1">Male</label>
+                                                    </div>
+                                                    <div class="icheck-primary d-inline">
+                                                        <input type="radio" id="radioPrimary2" name="gender"
+                                                               value="female">
+                                                        <label for="radioPrimary2">Female</label>
+                                                    </div>
+                                                </div>
+                                                @if ($errors->has('gender'))
+                                                    <span class="text-danger">{{ $errors->first('gender') }}</span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="dob" class="col-sm-2 col-form-label">Date of birth</label>
+                                            <div class="col-sm-9">
+                                                <input type="date" class="form-control" id="dob" name="dob">
+                                                @if ($errors->has('dob'))
+                                                    <span class="text-danger">{{ $errors->first('dob') }}</span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-xs-12">
                                         <div class="form-group row">
                                             <label for="last_name" class="col-sm-2 col-form-label">Last Name</label>
                                             <div class="col-sm-9">
@@ -65,68 +99,32 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="phone" class="col-sm-2 col-form-label">Phone</label>
+                                            <label for="passport_number" class="col-sm-2 col-form-label">Passport
+                                                No</label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="phone" name="phone">
-                                                @if ($errors->has('phone'))
-                                                    <span class="text-danger">{{ $errors->first('phone') }}</span>
+                                                <input type="text" class="form-control" id="passport_number"
+                                                       name="passport_number">
+                                                @if ($errors->has('passport_number'))
+                                                    <span
+                                                        class="text-danger">{{ $errors->first('passport_number') }}</span>
                                                 @endif
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="password" class="col-sm-2 col-form-label">Password</label>
-                                            <div class="col-sm-9">
-                                                <input type="password" class="form-control" id="password"
-                                                       name="password">
-                                                @if ($errors->has('password'))
-                                                    <span class="text-danger">{{ $errors->first('password') }}</span>
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="password" class="col-sm-2 col-form-label">Status</label>
-                                            <div class="col-sm-9">
-                                                <div class="custom-control custom-radio">
-                                                    <input class="custom-control-input" type="radio" id="active"
-                                                           name="status" value="active" checked="checked">
-                                                    <label for="active" class="custom-control-label">Active</label>
-                                                </div>
-                                                <div class="custom-control custom-radio">
-                                                    <input class="custom-control-input" type="radio" id="inactive"
-                                                           name="status" value="inactive">
-                                                    <label for="inactive" class="custom-control-label">In-Active</label>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-xs-12">
-                                        <h3><b>Agency Info</b></h3>
+                                    <div class="col-lg-12 col-xs-12">
                                         <hr>
-                                        <div class="form-group row">
-                                            <label for="company_name" class="col-sm-2 col-form-label">Company Name</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="company_name"
-                                                       name="company_name">
-                                                @if ($errors->has('company_name'))
-                                                    <span class="text-danger">{{ $errors->first('company_name') }}</span>
-                                                @endif
-                                            </div>
-                                        </div>
+                                        <h4><b>Residential Details</b></h4>
+                                        <hr>
+                                    </div>
+                                    <div class="col-lg-6 col-xs-12">
                                         <div class="form-group row">
                                             <label for="address1" class="col-sm-2 col-form-label">Address 1</label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="address1" name="address1">
+                                                <input type="text" class="form-control" id="address1"
+                                                       name="address1">
                                                 @if ($errors->has('address1'))
-                                                    <span class="text-danger">{{ $errors->first('address1') }}</span>
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="address2" class="col-sm-2 col-form-label">Address 2</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="address2" name="address2">
-                                                @if ($errors->has('address2'))
-                                                    <span class="text-danger">{{ $errors->first('address2') }}</span>
+                                                    <span
+                                                        class="text-danger">{{ $errors->first('address1') }}</span>
                                                 @endif
                                             </div>
                                         </div>
@@ -145,7 +143,33 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="province_id" class="col-sm-2 col-form-label">Province / State</label>
+                                            <label for="city" class="col-sm-2 col-form-label">City</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" id="city"
+                                                       name="city">
+                                                @if ($errors->has('city'))
+                                                    <span
+                                                        class="text-danger">{{ $errors->first('city') }}</span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6 col-xs-12">
+                                        <div class="form-group row">
+                                            <label for="address2" class="col-sm-2 col-form-label">Address 2</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" id="address2"
+                                                       name="address2">
+                                                @if ($errors->has('address2'))
+                                                    <span
+                                                        class="text-danger">{{ $errors->first('address2') }}</span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="province_id" class="col-sm-2 col-form-label">Province /
+                                                State</label>
                                             <div class="col-sm-9">
                                                 <select class="form-control" id="province_id" name="province_id">
                                                 </select>
@@ -155,22 +179,91 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="city" class="col-sm-2 col-form-label">City</label>
+                                            <label for="postal_code" class="col-sm-2 col-form-label">Postal Code</label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="city"
-                                                       name="city">
-                                                @if ($errors->has('city'))
-                                                    <span class="text-danger">{{ $errors->first('city') }}</span>
+                                                <input type="text" class="form-control" id="postal_code"
+                                                       name="postal_code">
+                                                @if ($errors->has('postal_code'))
+                                                    <span
+                                                        class="text-danger">{{ $errors->first('postal_code') }}</span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-xs-12">
+                                        <hr>
+                                        <h4><b>Documents</b></h4>
+                                        <hr>
+                                    </div>
+                                    <div class="col-lg-6 col-xs-12">
+                                        <div class="form-group row">
+                                            <label for="passport" class="col-sm-2 col-form-label">Passport</label>
+                                            <div class="col-sm-9">
+                                                <div class="custom-file">
+                                                    <input type="file" class="form-control" name="passport"
+                                                           id="passport">
+                                                </div>
+                                                @if ($errors->has('passport'))
+                                                    <span
+                                                        class="text-danger">{{ $errors->first('passport') }}</span>
                                                 @endif
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="website" class="col-sm-2 col-form-label">Website</label>
+                                            <label for="education_documents" class="col-sm-2 col-form-label">Education
+                                                documents</label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="website"
-                                                       name="website">
-                                                @if ($errors->has('website'))
-                                                    <span class="text-danger">{{ $errors->first('website') }}</span>
+                                                <div class="custom-file">
+                                                    <input type="file" class="form-control"
+                                                           name="education_documents"
+                                                           id="education_documents">
+                                                </div>
+                                                @if ($errors->has('education_documents'))
+                                                    <span
+                                                        class="text-danger">{{ $errors->first('education_documents') }}</span>
+                                                @endif
+                                            </div>
+                                        </div>
+
+                                        @if($user_type == 'admin')
+                                            <div class="form-group row">
+                                                <label for="is_private" class="col-sm-2 col-form-label">Keep
+                                                    private</label>
+                                                <div class="col-sm-9">
+                                                    <select class="form-control" id="is_private" name="is_private">
+                                                        <option value="no" selected>No</option>
+                                                        <option value="yes">Yes</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        @endif
+
+                                    </div>
+                                    <div class="col-lg-6 col-xs-12">
+                                        <div class="form-group row">
+                                            <label for="ielts" class="col-sm-2 col-form-label">Ielts</label>
+                                            <div class="col-sm-9">
+                                                <div class="custom-file">
+                                                    <input type="file" class="form-control" name="ielts"
+                                                           id="ielts">
+                                                </div>
+                                                @if ($errors->has('ielts'))
+                                                    <span
+                                                        class="text-danger">{{ $errors->first('ielts') }}</span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="study_permit" class="col-sm-2 col-form-label">Study
+                                                permit</label>
+                                            <div class="col-sm-9">
+                                                <div class="custom-file">
+                                                    <input type="file" class="form-control" name="study_permit"
+                                                           id="study_permit">
+                                                </div>
+                                                @if ($errors->has('study_permit'))
+                                                    <span
+                                                        class="text-danger">{{ $errors->first('study_permit') }}</span>
                                                 @endif
                                             </div>
                                         </div>
@@ -179,10 +272,11 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-success"><i class="icon fas fa-save"></i> Save</button>
-                                <a href="{{ URL::route('agents') }}" class="btn btn-danger float-right">
+                                <button type="submit" class="btn btn-success"><i class="icon fas fa-save"></i> Save
+                                </button>
+                                {{--<a href="{{ URL::route('agents') }}" class="btn btn-danger float-right">
                                     <i class="icon fas fa-backspace"></i> Cancel
-                                </a>
+                                </a>--}}
                             </div>
                             <!-- /.card-footer -->
                         </form>

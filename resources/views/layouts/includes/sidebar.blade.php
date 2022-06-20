@@ -1,6 +1,7 @@
 @php
     $user = Auth::user();
     $path = Route::getFacadeRoot()->current()->uri();
+    /*dd($path);*/
 @endphp
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -69,17 +70,17 @@
                     </li>
                 @endif
                 <li class="nav-item ">
-                    <a href="#" class="nav-link @if($path == 'students-create') active @endif"> {{--active--}}
+                    <a href="#" class="nav-link @if($path == 'students/create') active @endif"> {{--active--}}
                         <i class="nav-icon fas fa-user-graduate"></i>
                         <p>
                             Students
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview" style="@if($path == 'students-create') display: block; @endif">
+                    <ul class="nav nav-treeview" style="@if($path == 'students/create') display: block; @endif">
                         <li class="nav-item">
                             <a href="{{ URL::route('students.create') }}"
-                               class="nav-link @if($path == 'students-create') active @endif"> {{--active--}}
+                               class="nav-link @if($path == 'students/create') active @endif"> {{--active--}}
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Register Student</p>
                             </a>
