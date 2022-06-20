@@ -57,3 +57,4 @@ Route::delete('intakes/{id}/destroy', [IntakeController::class, 'destroy'])->nam
 
 Route::get('students/create', [StudentController::class, 'create'])->name('students.create');
 Route::post('students/save', [StudentController::class, 'save'])->name('students.save');
+Route::get('students/new', [StudentController::class, 'new_list'])->name('students.new');

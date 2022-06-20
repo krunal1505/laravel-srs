@@ -43,32 +43,32 @@ class StudentController extends Controller
                 'education_documents' => 'required|mimes:jpg,jpeg,png,pdf'
             ]);
 
-            if ($request->hasFile('passport')){
+            if ($request->hasFile('passport')) {
                 $passportWithExt = $request->file('passport')->getClientOriginalName();
                 $passportName = pathinfo($passportWithExt, PATHINFO_FILENAME);
                 $passportExtension = $request->file('passport')->getClientOriginalExtension();
-                $passportToStore = $passportName.'_'.time().'.'.$passportExtension;
+                $passportToStore = $passportName . '_' . time() . '.' . $passportExtension;
                 $passportPath = $request->file('passport')->storeAs('public/documents', $passportToStore);
             }
-            if ($request->hasFile('ielts')){
+            if ($request->hasFile('ielts')) {
                 $ieltsWithExt = $request->file('ielts')->getClientOriginalName();
                 $ieltsName = pathinfo($ieltsWithExt, PATHINFO_FILENAME);
                 $ieltsExtension = $request->file('ielts')->getClientOriginalExtension();
-                $ieltsToStore = $ieltsName.'_'.time().'.'.$ieltsExtension;
+                $ieltsToStore = $ieltsName . '_' . time() . '.' . $ieltsExtension;
                 $ieltsPath = $request->file('ielts')->storeAs('public/documents', $ieltsToStore);
             }
-            if ($request->hasFile('education_documents')){
+            if ($request->hasFile('education_documents')) {
                 $education_documentsWithExt = $request->file('education_documents')->getClientOriginalName();
                 $education_documentsName = pathinfo($education_documentsWithExt, PATHINFO_FILENAME);
                 $education_documentsExtension = $request->file('education_documents')->getClientOriginalExtension();
-                $education_documentsToStore = $education_documentsName.'_'.time().'.'.$education_documentsExtension;
+                $education_documentsToStore = $education_documentsName . '_' . time() . '.' . $education_documentsExtension;
                 $education_documentsPath = $request->file('education_documents')->storeAs('public/documents', $education_documentsToStore);
             }
-            if ($request->hasFile('study_permit')){
+            if ($request->hasFile('study_permit')) {
                 $study_permitWithExt = $request->file('study_permit')->getClientOriginalName();
                 $study_permitName = pathinfo($study_permitWithExt, PATHINFO_FILENAME);
                 $study_permitExtension = $request->file('study_permit')->getClientOriginalExtension();
-                $study_permitToStore = $study_permitName.'_'.time().'.'.$study_permitExtension;
+                $study_permitToStore = $study_permitName . '_' . time() . '.' . $study_permitExtension;
                 $study_permitPath = $request->file('study_permit')->storeAs('public/documents', $study_permitToStore);
             } else {
                 $study_permitToStore = null;
@@ -104,6 +104,22 @@ class StudentController extends Controller
             /*dd($data);*/
             Student::create($data);
 //            return redirect("employees")->with('success', 'Student Profile Created successfully');
+        }
+        return redirect("login");
+    }
+
+    public function new_list()
+    {
+        if (Auth::check()) {
+//            dd(Auth::user()->user_type);
+            if (Auth::user()->user_type == 'admin') {
+                $students = Student::where('status', 'new')->latest()->get();
+            } else if (Auth::user()->user_type == 'employee') {
+                $students = Student::where('status', 'new')->where('is_private', 'no')->latest()->get();
+            } else {
+                $students = Student::where('status', 'new')->where('is_private', 'no')->where('created_by', Auth::user()->id)->latest()->get();
+            }
+            return view('students.new_list', compact('students'));
         }
         return redirect("login");
     }

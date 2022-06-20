@@ -70,14 +70,16 @@
                     </li>
                 @endif
                 <li class="nav-item ">
-                    <a href="#" class="nav-link @if($path == 'students/create') active @endif"> {{--active--}}
+                    <a href="#"
+                       class="nav-link @if($path == 'students/create' || $path == 'students/new') active @endif"> {{--active--}}
                         <i class="nav-icon fas fa-user-graduate"></i>
                         <p>
                             Students
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview" style="@if($path == 'students/create') display: block; @endif">
+                    <ul class="nav nav-treeview"
+                        style="@if($path == 'students/create' || $path == 'students/new') display: block; @endif">
                         <li class="nav-item">
                             <a href="{{ URL::route('students.create') }}"
                                class="nav-link @if($path == 'students/create') active @endif"> {{--active--}}
@@ -86,7 +88,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./index2.html" class="nav-link">
+                            <a href="{{ URL::route('students.new') }}"
+                               class="nav-link @if($path == 'students/new') active @endif">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>New Students</p>
                             </a>
