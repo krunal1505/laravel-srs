@@ -121,9 +121,7 @@ class AgentController extends Controller
                 'website' => $request->website
             );
             Agent::where('user_id', $id)->update($agent_data);
-//            echo "<pre>"; print_r($user_data); print_r($agent_data); echo "</pre>";exit;
             return redirect("agents")->with('success', 'Agent Updated successfully');
-            /*return view('employees.create');*/
         }
         return redirect("login");
     }

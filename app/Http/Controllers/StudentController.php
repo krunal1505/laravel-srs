@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Intake;
 use App\Models\Program;
 use App\Models\Country;
+use App\Models\State;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -105,9 +106,9 @@ class StudentController extends Controller
                 'created_by' => $user = Auth::user()->id,
                 'is_private' => $is_private,
             );
-            /*dd($data);*/
+
             Student::create($data);
-//            return redirect("employees")->with('success', 'Student Profile Created successfully');
+            return redirect("students/new")->with('success', 'Student Profile Created successfully');
         }
         return redirect("login");
     }
@@ -117,14 +118,63 @@ class StudentController extends Controller
         if (Auth::check()) {
 //            dd(Auth::user()->user_type);
             if (Auth::user()->user_type == 'admin') {
-                $students = Student::where('status', 'new')->latest()->get();
+                $students = Student::leftJoin('programs', 'students.program_id', '=', 'programs.id')
+                    ->leftJoin('intakes', 'students.intake_id', '=', 'intakes.id')
+                    /*->leftJoin('users', 'students.created_by', '=', 'users.id')*/
+                    ->where('students.status', 'new')
+                    ->latest('students.created_at')
+                    ->get();
             } else if (Auth::user()->user_type == 'employee') {
-                $students = Student::where('status', 'new')->where('is_private', 'no')->latest()->get();
+                $students = Student::leftJoin('programs', 'students.program_id', '=', 'programs.id')
+                    ->leftJoin('intakes', 'students.intake_id', '=', 'intakes.id')
+                    ->where('students.status', 'new')
+                    ->where('is_private', 'no')
+                    ->latest('students.created_at')
+                    ->get();
             } else {
-                $students = Student::where('status', 'new')->where('is_private', 'no')->where('created_by', Auth::user()->id)->latest()->get();
+                $students = Student::leftJoin('programs', 'students.program_id', '=', 'programs.id')
+                    ->leftJoin('intakes', 'students.intake_id', '=', 'intakes.id')
+                    ->where('students.status', 'new')
+                    ->where('is_private', 'no')
+                    ->where('created_by', Auth::user()->id)
+                    ->latest('students.created_at')
+                    ->get();
             }
             return view('students.new_list', compact('students'));
         }
         return redirect("login");
     }
+
+    public function new_view($id)
+    {
+        if (Auth::check()) {
+            $user_type = Auth::user()->user_type;
+            $student = Student::leftJoin('programs', 'students.program_id', '=', 'programs.id')
+                ->leftJoin('intakes', 'students.intake_id', '=', 'intakes.id')
+                ->where('students.id', $id)
+                ->get();
+            return view('students.new_view', compact('student', 'user_type'));
+        }
+        return redirect("login");
+    }
+
+    public function new_update(Request $request)
+    {
+        if (Auth::check()) {
+            $request->validate([
+                'id' => 'required',
+                'status' => 'required',
+                'notes' => 'required'
+            ]);
+            $data = array(
+                'status' => $request->status,
+                'notes' => $request->notes
+            );
+
+            Student::where('id', $request->id)->update($data);
+            return redirect("students/new")->with('success', 'Student Updated successfully');
+        }
+        return redirect("login");
+    }
+
 }

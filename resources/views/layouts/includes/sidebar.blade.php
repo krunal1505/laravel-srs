@@ -83,21 +83,27 @@
                         <li class="nav-item">
                             <a href="{{ URL::route('students.create') }}"
                                class="nav-link @if($path == 'students/create') active @endif"> {{--active--}}
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="far fa-registered nav-icon"></i>
                                 <p>Register Student</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ URL::route('students.new') }}"
                                class="nav-link @if($path == 'students/new') active @endif">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="fas fa-plus-square nav-icon"></i>
                                 <p>New Students</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="./index3.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="fas fa-university nav-icon"></i>
                                 <p>Enrolled Students</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="./index3.html" class="nav-link">
+                                <i class="fas fa-ban nav-icon"></i>
+                                <p>Rejected Students</p>
                             </a>
                         </li>
                     </ul>

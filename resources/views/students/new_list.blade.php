@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Agents</h1>
+                    <h1 class="m-0">New Students List</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ URL::route('dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Students</li>
+                        <li class="breadcrumb-item active">New Students</li>
                     </ol>
                 </div>
             </div>
@@ -54,7 +54,9 @@
                                     <th>First Name</th>
                                     <th>Last Name</th>
                                     <th>Email</th>
-                                    <th>Created By</th>
+                                    <th>Program</th>
+                                    <th>Intake</th>
+                                    {{--<th>Created By</th>--}}
                                     <th class="text-right">Actions</th>
                                 </tr>
                                 </thead>
@@ -65,14 +67,20 @@
                                         <td>{{$student->first_name}}</td>
                                         <td>{{$student->last_name}}</td>
                                         <td>{{$student->email}}</td>
-                                        <td>{{$student->created_by}}</td>
+                                        <td>{{$student->program_name}}</td>
+                                        <td>{{$student->start_date}}</td>
+                                        {{--<td>{{$student->first_name}}</td>--}}
                                         <td class="text-right">
                                             <div class="btn-group">
-                                                <a href="{{ URL::route('agents-edit', $student->id) }}"
+                                                <a href="{{ URL::route('students.new.view', $student->id) }}"
+                                                   class="btn btn-info btn-flat">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <a href="{{ URL::route('students.new.edit', $student->id) }}"
                                                    class="btn btn-warning btn-flat">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
-                                                <form action="{{URL::route('agents.destroy', $student->id)}}"
+                                                <form action="{{URL::route('students.new.destroy', $student->id)}}"
                                                       method="post">
                                                     @csrf
                                                     @method('DELETE')
