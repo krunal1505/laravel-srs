@@ -71,7 +71,7 @@
                 @endif
                 <li class="nav-item ">
                     <a href="#"
-                       class="nav-link @if($path == 'students/create' || $path == 'students/new' || $path == 'students/enrolled') active @endif"> {{--active--}}
+                       class="nav-link @if($path == 'students/create' || $path == 'students/new' || $path == 'students/enrolled' || $path == 'students/rejected') active @endif"> {{--active--}}
                         <i class="nav-icon fas fa-user-graduate"></i>
                         <p>
                             Students
@@ -79,7 +79,7 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview"
-                        style="@if($path == 'students/create' || $path == 'students/new' || $path == 'students/enrolled') display: block; @endif">
+                        style="@if($path == 'students/create' || $path == 'students/new' || $path == 'students/enrolled' || $path == 'students/rejected') display: block; @endif">
                         <li class="nav-item">
                             <a href="{{ URL::route('students.create') }}"
                                class="nav-link @if($path == 'students/create') active @endif"> {{--active--}}
@@ -102,7 +102,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./index3.html" class="nav-link">
+                            <a href="{{ URL::route('students.rejected') }}"
+                               class="nav-link @if($path == 'students/rejected') active @endif">
                                 <i class="fas fa-ban nav-icon"></i>
                                 <p>Rejected Students</p>
                             </a>

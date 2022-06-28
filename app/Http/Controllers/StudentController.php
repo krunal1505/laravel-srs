@@ -336,4 +336,106 @@ class StudentController extends Controller
         }
         return redirect("login");
     }
+
+    public function rejected_list()
+    {
+        if (Auth::check()) {
+            if (Auth::user()->user_type == 'admin') {
+                $students = Student::leftJoin('programs', 'students.program_id', '=', 'programs.id')
+                    ->leftJoin('intakes', 'students.intake_id', '=', 'intakes.id')
+                    /*->leftJoin('users', 'students.created_by', '=', 'users.id')*/
+                    ->where('students.status', 'rejected')
+                    ->latest('students.created_at')
+                    ->get();
+            } else if (Auth::user()->user_type == 'employee') {
+                $students = Student::leftJoin('programs', 'students.program_id', '=', 'programs.id')
+                    ->leftJoin('intakes', 'students.intake_id', '=', 'intakes.id')
+                    ->where('students.status', 'rejected')
+                    ->where('is_private', 'no')
+                    ->latest('students.created_at')
+                    ->get();
+            } else {
+                $students = Student::leftJoin('programs', 'students.program_id', '=', 'programs.id')
+                    ->leftJoin('intakes', 'students.intake_id', '=', 'intakes.id')
+                    ->where('students.status', 'rejected')
+                    ->where('is_private', 'no')
+                    ->where('created_by', Auth::user()->id)
+                    ->latest('students.created_at')
+                    ->get();
+            }
+            return view('students.rejected_list', compact('students'));
+        }
+        return redirect("login");
+    }
+
+    public function rejected_view($id)
+    {
+        if (Auth::check()) {
+            $user_type = Auth::user()->user_type;
+            $student = Student::leftJoin('programs', 'students.program_id', '=', 'programs.id')
+                ->leftJoin('intakes', 'students.intake_id', '=', 'intakes.id')
+                ->where('students.id', $id)
+                ->get();
+            return view('students.rejected_view', compact('student', 'user_type'));
+        }
+        return redirect("login");
+    }
+
+    public function rejected_edit($id)
+    {
+        if (Auth::check()) {
+            $user_type = Auth::user()->user_type;
+            $programs = Program::get();
+            $intakes = Intake::where('start_date', '>=', date('Y-m-d'))->get();
+            $countries = Country::get();
+            $provinces = State::get();
+            $student = Student::leftJoin('programs', 'students.program_id', '=', 'programs.id')
+                ->leftJoin('intakes', 'students.intake_id', '=', 'intakes.id')
+                ->where('students.id', $id)
+                ->get();
+            return view('students.enrolled_edit', compact('student', 'user_type',
+                'programs', 'intakes', 'countries', 'provinces'));
+        }
+        return redirect("login");
+    }
+
+    public function rejected_update(Request $request, $id)
+    {
+        if (Auth::check()) {
+            $request->validate([
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'gender' => 'required',
+                'dob' => 'required',
+                'passport_number' => 'required',
+                'address1' => 'required',
+                'country_id' => 'required',
+                'province_id' => 'required',
+                'city' => 'required',
+                'postal_code' => 'required',
+                'program_id' => 'required',
+                'intake_id' => 'required',
+            ]);
+
+            $data = array(
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'gender' => $request->gender,
+                'dob' => $request->dob,
+                'passport_number' => $request->passport_number,
+                'address1' => $request->address1,
+                'address2' => $request->address2,
+                'country_id' => $request->country_id,
+                'state_id' => $request->province_id,
+                'city' => $request->city,
+                'postal_code' => $request->postal_code,
+                'program_id' => $request->program_id,
+                'intake_id' => $request->intake_id,
+            );
+
+            Student::where('id', $id)->update($data);
+            return redirect("students/enrolled")->with('success', 'Student Profile Updated successfully');
+        }
+        return redirect("login");
+    }
 }

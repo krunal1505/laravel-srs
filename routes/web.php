@@ -66,3 +66,7 @@ Route::get('students/enrolled', [StudentController::class, 'enrolled_list'])->na
 Route::get('students/enrolled/{id}/view', [StudentController::class, 'enrolled_view'])->name('students.enrolled.view');
 Route::get('students/enrolled/{id}/edit', [StudentController::class, 'enrolled_edit'])->name('students.enrolled.edit');
 Route::post('students/enrolled_update/{id}', [StudentController::class, 'enrolled_update'])->name('students.enrolled_update');
+Route::get('students/rejected', [StudentController::class, 'rejected_list'])->name('students.rejected');
+Route::get('students/rejected/{id}/view', [StudentController::class, 'rejected_view'])->name('students.rejected.view');
+Route::get('students/rejected/{id}/edit', [StudentController::class, 'rejected_edit'])->name('students.rejected.edit');
+Route::post('students/rejected_update/{id}', [StudentController::class, 'rejected_update'])->name('students.rejected_update');
