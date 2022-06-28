@@ -59,6 +59,7 @@ Route::get('students/create', [StudentController::class, 'create'])->name('stude
 Route::post('students/save', [StudentController::class, 'save'])->name('students.save');
 Route::get('students/new', [StudentController::class, 'new_list'])->name('students.new');
 Route::get('students/new/{id}/view', [StudentController::class, 'new_view'])->name('students.new.view');
-Route::post('students/new/update', [StudentController::class, 'new_update'])->name('students.new.update');
+Route::post('students/new/updateStatus', [StudentController::class, 'new_update_status'])->name('students.new.updateStatus');
 Route::get('students/new/{id}/edit', [StudentController::class, 'new_edit'])->name('students.new.edit');
+Route::post('students/new_update/{id}', [StudentController::class, 'new_update'])->name('students.new_update');
 Route::get('students/new//{id}destroy', [StudentController::class, 'new_destroy'])->name('students.new.destroy');

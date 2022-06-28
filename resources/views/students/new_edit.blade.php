@@ -6,13 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">View Application</h1>
+                    <h1 class="m-0">Update Student</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ URL::route('dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="{{ URL::route('students.new') }}">New Students</a></li>
-                        <li class="breadcrumb-item active">View Application</li>
+                        <li class="breadcrumb-item active">Update Student</li>
                     </ol>
                 </div>
             </div>
@@ -26,11 +25,12 @@
                 <div class="col-lg-12 col-xs-12">
                     <div class="card card-default">
                         <div class="card-header">
-                            <h3 class="card-title">Update new application</h3>
+                            <h3 class="card-title">Update Student</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form class="form-horizontal" action="{{ route('students.new.updateStatus') }}" method="post">
+                        <form class="form-horizontal" action="{{ route('students.new_update', $student[0]->id) }}" method="post"
+                              enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="row">
@@ -42,25 +42,43 @@
                                         <div class="form-group row">
                                             <label for="first_name" class="col-sm-2 col-form-label">First Name</label>
                                             <div class="col-sm-9">
-                                                <label class="col-form-label">
-                                                    <b>{{$student[0]->first_name}}</b>
-                                                </label>
+                                                <input type="text" class="form-control" id="first_name"
+                                                       name="first_name" value="{{$student[0]->first_name}}">
+                                                @if ($errors->has('first_name'))
+                                                    <span class="text-danger">{{ $errors->first('first_name') }}</span>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Gender</label>
                                             <div class="col-sm-9">
-                                                <label class="col-form-label">
-                                                    <b>{{$student[0]->gender}}</b>
-                                                </label>
+                                                <div class="form-group clearfix mt-2 mb-0">
+                                                    <div class="icheck-primary d-inline">
+                                                        <input type="radio" id="radioPrimary1" name="gender"
+                                                               value="male"
+                                                               @if($student[0]->gender == 'male') checked @endif>
+                                                        <label for="radioPrimary1">Male</label>
+                                                    </div>
+                                                    <div class="icheck-primary d-inline">
+                                                        <input type="radio" id="radioPrimary2" name="gender"
+                                                               value="female"
+                                                               @if($student[0]->gender == 'female') checked @endif>
+                                                        <label for="radioPrimary2">Female</label>
+                                                    </div>
+                                                </div>
+                                                @if ($errors->has('gender'))
+                                                    <span class="text-danger">{{ $errors->first('gender') }}</span>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="dob" class="col-sm-2 col-form-label">Date of birth</label>
                                             <div class="col-sm-9">
-                                                <label class="col-form-label">
-                                                    <b>{{$student[0]->dob}}</b>
-                                                </label>
+                                                <input type="date" class="form-control" id="dob" name="dob"
+                                                       value="{{$student[0]->dob}}">
+                                                @if ($errors->has('dob'))
+                                                    <span class="text-danger">{{ $errors->first('dob') }}</span>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -68,26 +86,33 @@
                                         <div class="form-group row">
                                             <label for="last_name" class="col-sm-2 col-form-label">Last Name</label>
                                             <div class="col-sm-9">
-                                                <label class="col-form-label">
-                                                    <b>{{$student[0]->last_name}}</b>
-                                                </label>
+                                                <input type="text" class="form-control" id="last_name" name="last_name"
+                                                       value="{{$student[0]->last_name}}">
+                                                @if ($errors->has('last_name'))
+                                                    <span class="text-danger">{{ $errors->first('last_name') }}</span>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="email" class="col-sm-2 col-form-label">Email</label>
                                             <div class="col-sm-9">
-                                                <label class="col-form-label">
-                                                    <b>{{$student[0]->email}}</b>
-                                                </label>
+                                                <input type="email" class="form-control" id="email" name="email"
+                                                       value="{{$student[0]->email}}" disabled>
+                                                @if ($errors->has('email'))
+                                                    <span class="text-danger">{{ $errors->first('email') }}</span>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="passport_number" class="col-sm-2 col-form-label">Passport
                                                 No</label>
                                             <div class="col-sm-9">
-                                                <label class="col-form-label">
-                                                    <b>{{$student[0]->passport_number}}</b>
-                                                </label>
+                                                <input type="text" class="form-control" id="passport_number"
+                                                       name="passport_number" value="{{$student[0]->passport_number}}">
+                                                @if ($errors->has('passport_number'))
+                                                    <span
+                                                        class="text-danger">{{ $errors->first('passport_number') }}</span>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -100,25 +125,38 @@
                                         <div class="form-group row">
                                             <label for="address1" class="col-sm-2 col-form-label">Address 1</label>
                                             <div class="col-sm-9">
-                                                <label class="col-form-label">
-                                                    <b>{{$student[0]->address1}}</b>
-                                                </label>
+                                                <input type="text" class="form-control" id="address1"
+                                                       name="address1" value="{{$student[0]->address1}}">
+                                                @if ($errors->has('address1'))
+                                                    <span
+                                                        class="text-danger">{{ $errors->first('address1') }}</span>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="country_id" class="col-sm-2 col-form-label">Country</label>
                                             <div class="col-sm-9">
-                                                <label class="col-form-label">
-                                                    <b>{{$student[0]->country_id}}</b>
-                                                </label>
+                                                <select class="form-control" id="country_id" name="country_id">
+                                                    <option value="" disabled selected>--- Select One ---</option>
+                                                    @foreach($countries as $country)
+                                                        <option value="{{$country->id}}"
+                                                                @if($student[0]->country_id == $country->id) selected @endif>{{$country->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                @if ($errors->has('country_id'))
+                                                    <span class="text-danger">{{ $errors->first('country_id') }}</span>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="city" class="col-sm-2 col-form-label">City</label>
                                             <div class="col-sm-9">
-                                                <label class="col-form-label">
-                                                    <b>{{$student[0]->city}}</b>
-                                                </label>
+                                                <input type="text" class="form-control" id="city"
+                                                       name="city" value="{{$student[0]->city}}">
+                                                @if ($errors->has('city'))
+                                                    <span
+                                                        class="text-danger">{{ $errors->first('city') }}</span>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -127,26 +165,38 @@
                                         <div class="form-group row">
                                             <label for="address2" class="col-sm-2 col-form-label">Address 2</label>
                                             <div class="col-sm-9">
-                                                <label class="col-form-label">
-                                                    <b>{{$student[0]->address2}}</b>
-                                                </label>
+                                                <input type="text" class="form-control" id="address2"
+                                                       name="address2" value="{{$student[0]->address2}}">
+                                                @if ($errors->has('address2'))
+                                                    <span
+                                                        class="text-danger">{{ $errors->first('address2') }}</span>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="province_id" class="col-sm-2 col-form-label">Province /
                                                 State</label>
                                             <div class="col-sm-9">
-                                                <label class="col-form-label">
-                                                    <b>{{$student[0]->state_id}}</b>
-                                                </label>
+                                                <select class="form-control" id="province_id" name="province_id">
+                                                    @foreach($provinces as $province)
+                                                        <option value="{{$province->id}}"
+                                                                @if($student[0]->state_id == $province->id) selected @endif>{{$province->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                @if ($errors->has('province_id'))
+                                                    <span class="text-danger">{{ $errors->first('province_id') }}</span>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="postal_code" class="col-sm-2 col-form-label">Postal Code</label>
                                             <div class="col-sm-9">
-                                                <label class="col-form-label">
-                                                    <b>{{$student[0]->postal_code}}</b>
-                                                </label>
+                                                <input type="text" class="form-control" id="postal_code"
+                                                       name="postal_code" value="{{$student[0]->postal_code}}">
+                                                @if ($errors->has('postal_code'))
+                                                    <span
+                                                        class="text-danger">{{ $errors->first('postal_code') }}</span>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -159,9 +209,18 @@
                                         <div class="form-group row">
                                             <label for="program_id" class="col-sm-2 col-form-label">Program</label>
                                             <div class="col-sm-9">
-                                                <label class="col-form-label">
-                                                    <b>{{$student[0]->program_name}}</b>
-                                                </label>
+                                                <select class="form-control" id="program_id" name="program_id">
+                                                    <option value="" disabled selected>--- Select One ---</option>
+                                                    @foreach($programs as $program)
+                                                        <option
+                                                            value="{{$program->id}}" @if($student[0]->program_id == $program->id) selected @endif>
+                                                            {{$program->program_name}}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                @if ($errors->has('program_id'))
+                                                    <span class="text-danger">{{ $errors->first('program_id') }}</span>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -169,9 +228,17 @@
                                         <div class="form-group row">
                                             <label for="intake_id" class="col-sm-2 col-form-label">Intake</label>
                                             <div class="col-sm-9">
-                                                <label class="col-form-label">
-                                                    <b>{{$student[0]->start_date}} to {{$student[0]->end_date}}</b>
-                                                </label>
+                                                <select class="form-control" id="intake_id" name="intake_id">
+                                                    <option value="" disabled selected>--- Select One ---</option>
+                                                    @foreach($intakes as $intake)
+                                                        <option value="{{$intake->id}}" @if($student[0]->intake_id == $intake->id) selected @endif>
+                                                            {{$intake->start_date}} to {{$intake->end_date}}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                @if ($errors->has('intake_id'))
+                                                    <span class="text-danger">{{ $errors->first('intake_id') }}</span>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -204,6 +271,20 @@
                                                 </label>
                                             </div>
                                         </div>
+
+                                        @if($user_type == 'admin')
+                                            <div class="form-group row">
+                                                <label for="is_private" class="col-sm-2 col-form-label">Keep
+                                                    private</label>
+                                                <div class="col-sm-9">
+                                                    <select class="form-control" id="is_private" name="is_private">
+                                                        <option value="no" @if($student[0]->is_private == "no") selected @endif>No</option>
+                                                        <option value="yes" @if($student[0]->is_private == "yes") selected @endif>Yes</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        @endif
+
                                     </div>
                                     <div class="col-lg-6 col-xs-12">
                                         <div class="form-group row">
@@ -221,59 +302,21 @@
                                             <label for="study_permit" class="col-sm-2 col-form-label">Study
                                                 permit</label>
                                             <div class="col-sm-9">
-                                                @if($student[0]->study_permit != '' || $student[0]->study_permit != null)
-                                                    <label class="col-form-label">
-                                                        <a href="{{ Storage::url('documents/'.$student[0]->study_permit) }}"
-                                                           download>
-                                                            <i class="icon fas fa-download"></i> Download file
-                                                        </a>
-                                                    </label>
-                                                @endif
+                                                <label class="col-form-label">
+                                                    <a href="{{ Storage::url('documents/'.$student[0]->study_permit) }}"
+                                                       download>
+                                                        <i class="icon fas fa-download"></i> Download file
+                                                    </a>
+                                                </label>
                                             </div>
                                         </div>
                                     </div>
-                                    @if($user_type != 'agent')
-                                        <div class="col-lg-12 col-xs-12">
-                                            <hr>
-                                            <h4><b>Update Status</b></h4>
-                                            <hr>
-                                            <input type="hidden" name="id" value="{{$student[0]->id}}">
-                                            <div class="form-group row">
-                                                <label for="status" class="col-sm-2 col-form-label">Choose
-                                                    Status</label>
-                                                <div class="col-sm-9">
-                                                    <select class="form-control" id="status" name="status">
-                                                        <option value="approved" selected>Approve</option>
-                                                        <option value="rejected">Reject</option>
-                                                    </select>
-                                                    @if ($errors->has('status'))
-                                                        <span
-                                                            class="text-danger">{{ $errors->first('status') }}</span>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="notes" class="col-sm-2 col-form-label">Notes</label>
-                                                <div class="col-sm-9">
-                                                    <textarea name="notes" id="notes" class="form-control"
-                                                              rows="3"></textarea>
-                                                    @if ($errors->has('notes'))
-                                                        <span
-                                                            class="text-danger">{{ $errors->first('notes') }}</span>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endif
                                 </div>
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
-                                @if($user_type != 'agent')
-                                    <button type="submit" class="btn btn-success">
-                                        <i class="icon fas fa-save"></i> Save
-                                    </button>
-                                @endif
+                                <button type="submit" class="btn btn-success"><i class="icon fas fa-save"></i> Save
+                                </button>
                                 <a href="{{ URL::route('students.new') }}" class="btn btn-danger float-right">
                                     <i class="icon fas fa-backspace"></i> Cancel
                                 </a>

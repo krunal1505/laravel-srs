@@ -186,9 +186,10 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-success"><i class="icon fas fa-save"></i> Save</button>
+                                <button type="submit" class="btn btn-success"><i class="icon fas fa-save"></i> Save
+                                </button>
                                 <a href="{{ URL::route('agents') }}" class="btn btn-danger float-right">
-                                    <i class="icon fas fa-backspace"></i>  Cancel
+                                    <i class="icon fas fa-backspace"></i> Cancel
                                 </a>
                             </div>
                             <!-- /.card-footer -->

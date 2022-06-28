@@ -80,18 +80,6 @@
                                                    class="btn btn-warning btn-flat">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
-                                                <form action="{{URL::route('students.new.destroy', $student->id)}}"
-                                                      method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button
-                                                        class="btn btn-danger btn-flat"
-                                                        onclick="return confirm('Are you sure you want to delete this field?');"
-                                                        type="submit"
-                                                    >
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </form>
                                             </div>
                                         </td>
                                     </tr>
