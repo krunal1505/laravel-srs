@@ -232,6 +232,19 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-lg-12 col-xs-12">
+                                        <hr>
+                                        <h4><b>Status</b></h4>
+                                        <hr>
+                                        <div class="form-group row">
+                                            <label for="notes" class="col-sm-2 col-form-label">Notes</label>
+                                            <div class="col-sm-9">
+                                                <label class="col-form-label">
+                                                    <b>{{$student[0]->notes}}</b>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <!-- /.card-body -->

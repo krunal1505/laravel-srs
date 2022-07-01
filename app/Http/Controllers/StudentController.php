@@ -123,7 +123,7 @@ class StudentController extends Controller
                     ->where('students.status', 'new')
                     ->latest('students.created_at')
                     ->get();
-            } else if (Auth::user()->user_type == 'employee') {
+            } else if (Auth::user()->user_type == 'employee' || Auth::user()->user_type == 'sub_admin') {
                 $students = Student::leftJoin('programs', 'students.program_id', '=', 'programs.id')
                     ->leftJoin('intakes', 'students.intake_id', '=', 'intakes.id')
                     ->where('students.status', 'new')
@@ -245,7 +245,7 @@ class StudentController extends Controller
                     ->where('students.status', 'approved')
                     ->latest('students.created_at')
                     ->get();
-            } else if (Auth::user()->user_type == 'employee') {
+            } else if (Auth::user()->user_type == 'employee' || Auth::user()->user_type == 'sub_admin') {
                 $students = Student::leftJoin('programs', 'students.program_id', '=', 'programs.id')
                     ->leftJoin('intakes', 'students.intake_id', '=', 'intakes.id')
                     ->where('students.status', 'approved')
@@ -347,7 +347,7 @@ class StudentController extends Controller
                     ->where('students.status', 'rejected')
                     ->latest('students.created_at')
                     ->get();
-            } else if (Auth::user()->user_type == 'employee') {
+            } else if (Auth::user()->user_type == 'employee' || Auth::user()->user_type == 'sub_admin') {
                 $students = Student::leftJoin('programs', 'students.program_id', '=', 'programs.id')
                     ->leftJoin('intakes', 'students.intake_id', '=', 'intakes.id')
                     ->where('students.status', 'rejected')

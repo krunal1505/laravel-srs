@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GeneralController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\ProgramController;
@@ -29,6 +30,13 @@ Route::get('signout', [AuthController::class, 'signOut'])->name('signout');
 
 Route::get('/', [GeneralController::class, 'dashboard'])->name('dashboard');
 Route::get('profile', [GeneralController::class, 'profile'])->name('profile');
+
+Route::get('admin', [AdminController::class, 'index'])->name('admin');
+Route::get('admin/create', [AdminController::class, 'create'])->name('admin-create');
+Route::post('admin/save', [AdminController::class, 'save'])->name('admin.save');
+Route::get('admin/{id}/edit', [AdminController::class, 'edit'])->name('admin-edit');
+Route::post('admin/{id}/update', [AdminController::class, 'update'])->name('admin.update');
+Route::delete('admin/{id}/destroy', [AdminController::class, 'destroy'])->name('admin.destroy');
 
 Route::get('employees', [EmployeeController::class, 'index'])->name('employees');
 Route::get('employees/create', [EmployeeController::class, 'create'])->name('employees-create');

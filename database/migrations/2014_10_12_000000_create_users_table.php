@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('phone');
-            $table->enum('user_type', ['admin', 'employee', 'agent']);
+            $table->enum('user_type', ['admin', 'sub_admin', 'employee', 'agent']);
             $table->enum('status', ['active', 'inactive']);
             $table->timestamps();
         });
