@@ -30,6 +30,8 @@ Route::get('signout', [AuthController::class, 'signOut'])->name('signout');
 
 Route::get('/', [GeneralController::class, 'dashboard'])->name('dashboard');
 Route::get('profile', [GeneralController::class, 'profile'])->name('profile');
+Route::post('profile/{id}/update', [GeneralController::class, 'profile_update'])->name('profile.update');
+Route::post('profile/update_password', [GeneralController::class, 'profile_update_password'])->name('profile.update_password');
 
 Route::get('admin', [AdminController::class, 'index'])->name('admin');
 Route::get('admin/create', [AdminController::class, 'create'])->name('admin-create');
