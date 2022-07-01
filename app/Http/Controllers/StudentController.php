@@ -393,7 +393,7 @@ class StudentController extends Controller
                 ->leftJoin('intakes', 'students.intake_id', '=', 'intakes.id')
                 ->where('students.id', $id)
                 ->get();
-            return view('students.enrolled_edit', compact('student', 'user_type',
+            return view('students.rejected_edit', compact('student', 'user_type',
                 'programs', 'intakes', 'countries', 'provinces'));
         }
         return redirect("login");
@@ -434,7 +434,7 @@ class StudentController extends Controller
             );
 
             Student::where('id', $id)->update($data);
-            return redirect("students/enrolled")->with('success', 'Student Profile Updated successfully');
+            return redirect("students/rejected")->with('success', 'Student Profile Updated successfully');
         }
         return redirect("login");
     }

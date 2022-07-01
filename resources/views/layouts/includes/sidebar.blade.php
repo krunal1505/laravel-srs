@@ -1,7 +1,8 @@
 @php
     $user = Auth::user();
-    $path = Route::getFacadeRoot()->current()->uri();
-    /*dd($path);*/
+    $path1 = Request::segment(1);
+    $path2 = Request::segment(2);
+    /*dd($path1);*/
 @endphp
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -27,7 +28,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
                 <li class="nav-item">
-                    <a href="{{ URL::route('dashboard') }}" class="nav-link @if($path == '/') active @endif">
+                    <a href="{{ URL::route('dashboard') }}" class="nav-link @if($path1 == null) active @endif">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
@@ -37,7 +38,7 @@
                 @if($user->user_type == 'admin')
                     <li class="nav-item">
                         <a href="{{ URL::route('employees') }}"
-                           class="nav-link @if($path == 'employees') active @endif">
+                           class="nav-link @if($path1 == 'employees') active @endif">
                             <i class="nav-icon fas fa-users"></i>
                             <p>
                                 Employees
@@ -45,7 +46,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ URL::route('agents') }}" class="nav-link @if($path == 'agents') active @endif">
+                        <a href="{{ URL::route('agents') }}" class="nav-link @if($path1 == 'agents') active @endif">
                             <i class="nav-icon fas fa-suitcase"></i>
                             <p>
                                 Agents
@@ -53,7 +54,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ URL::route('programs') }}" class="nav-link @if($path == 'programs') active @endif">
+                        <a href="{{ URL::route('programs') }}" class="nav-link @if($path1 == 'programs') active @endif">
                             <i class="nav-icon fas fa-book"></i>
                             <p>
                                 Programs
@@ -61,7 +62,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ URL::route('intakes') }}" class="nav-link @if($path == 'intakes') active @endif">
+                        <a href="{{ URL::route('intakes') }}" class="nav-link @if($path1 == 'intakes') active @endif">
                             <i class="nav-icon fas fa-calendar"></i>
                             <p>
                                 Intakes
@@ -71,7 +72,7 @@
                 @endif
                 <li class="nav-item ">
                     <a href="#"
-                       class="nav-link @if($path == 'students/create' || $path == 'students/new' || $path == 'students/enrolled' || $path == 'students/rejected') active @endif"> {{--active--}}
+                       class="nav-link @if($path1 == 'students') active @endif"> {{--active--}}
                         <i class="nav-icon fas fa-user-graduate"></i>
                         <p>
                             Students
@@ -79,31 +80,31 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview"
-                        style="@if($path == 'students/create' || $path == 'students/new' || $path == 'students/enrolled' || $path == 'students/rejected') display: block; @endif">
+                        style="@if($path1 == 'students') display: block; @endif">
                         <li class="nav-item">
                             <a href="{{ URL::route('students.create') }}"
-                               class="nav-link @if($path == 'students/create') active @endif"> {{--active--}}
+                               class="nav-link @if($path2 == 'create') active @endif"> {{--active--}}
                                 <i class="far fa-registered nav-icon"></i>
                                 <p>Register Student</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ URL::route('students.new') }}"
-                               class="nav-link @if($path == 'students/new') active @endif">
+                               class="nav-link @if($path2 == 'new') active @endif">
                                 <i class="fas fa-plus-square nav-icon"></i>
                                 <p>New Students</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ URL::route('students.enrolled') }}"
-                               class="nav-link @if($path == 'students/enrolled') active @endif">
+                               class="nav-link @if($path2 == 'enrolled') active @endif">
                                 <i class="fas fa-university nav-icon"></i>
                                 <p>Enrolled Students</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ URL::route('students.rejected') }}"
-                               class="nav-link @if($path == 'students/rejected') active @endif">
+                               class="nav-link @if($path2 == 'rejected') active @endif">
                                 <i class="fas fa-ban nav-icon"></i>
                                 <p>Rejected Students</p>
                             </a>
