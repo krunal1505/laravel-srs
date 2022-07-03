@@ -68,11 +68,14 @@ Route::delete('intakes/{id}/destroy', [IntakeController::class, 'destroy'])->nam
 Route::get('students/create', [StudentController::class, 'create'])->name('students.create');
 Route::post('students/save', [StudentController::class, 'save'])->name('students.save');
 Route::get('students/new', [StudentController::class, 'new_list'])->name('students.new');
+Route::get('students/new_list_ajax', [StudentController::class, 'new_list_ajax'])->name('students.new_list_ajax');
+
 Route::get('students/new/{id}/view', [StudentController::class, 'new_view'])->name('students.new.view');
 Route::post('students/new/updateStatus', [StudentController::class, 'new_update_status'])->name('students.new.updateStatus');
 Route::get('students/new/{id}/edit', [StudentController::class, 'new_edit'])->name('students.new.edit');
 Route::post('students/new_update/{id}', [StudentController::class, 'new_update'])->name('students.new_update');
 Route::get('students/enrolled', [StudentController::class, 'enrolled_list'])->name('students.enrolled');
+Route::get('students/generate/{id}', [StudentController::class, 'generate'])->name('students.generate');
 Route::get('students/enrolled/{id}/view', [StudentController::class, 'enrolled_view'])->name('students.enrolled.view');
 Route::get('students/enrolled/{id}/edit', [StudentController::class, 'enrolled_edit'])->name('students.enrolled.edit');
 Route::post('students/enrolled_update/{id}', [StudentController::class, 'enrolled_update'])->name('students.enrolled_update');

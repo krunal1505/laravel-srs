@@ -72,7 +72,7 @@
                                         {{--<td>{{$student->first_name}}</td>--}}
                                         <td class="text-right">
                                             <div class="btn-group">
-                                                <a href="#"
+                                                <a href="{{ URL::route('students.generate', $student->id) }}"
                                                    class="btn btn-secondary btn-flat">
                                                     <i class="fas fa-file"></i>
                                                 </a>

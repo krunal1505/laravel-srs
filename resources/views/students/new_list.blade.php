@@ -39,15 +39,16 @@
                             </div>
                         @endif
                         <div class="card-header">
-                            <div class="row">
+                            <h3 class="card-title">Students List</h3>
+                            {{--<div class="row">
                                 <div class="col-12">
-                                    <h4>Students List</h4>
+                                    <h4></h4>
                                 </div>
-                            </div>
+                            </div>--}}
                         </div>
                         <!-- /.card-header -->
-                        <div class="card-body table-responsive p-0">
-                            <table class="table table-hover text-nowrap">
+                        <div class="card-body">
+                            <table class="table table-bordered table-striped" id="table">
                                 <thead>
                                 <tr>
                                     <th>ID</th>
@@ -56,35 +57,9 @@
                                     <th>Email</th>
                                     <th>Program</th>
                                     <th>Intake</th>
-                                    {{--<th>Created By</th>--}}
                                     <th class="text-right">Actions</th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                @foreach($students as $student)
-                                    <tr>
-                                        <td>{{$loop->index + 1}}</td>
-                                        <td>{{$student->first_name}}</td>
-                                        <td>{{$student->last_name}}</td>
-                                        <td>{{$student->email}}</td>
-                                        <td>{{$student->program_name}}</td>
-                                        <td>{{$student->start_date}}</td>
-                                        {{--<td>{{$student->first_name}}</td>--}}
-                                        <td class="text-right">
-                                            <div class="btn-group">
-                                                <a href="{{ URL::route('students.new.view', $student->id) }}"
-                                                   class="btn btn-info btn-flat">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                                <a href="{{ URL::route('students.new.edit', $student->id) }}"
-                                                   class="btn btn-warning btn-flat">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
                             </table>
                         </div>
                         <!-- /.card-body -->
@@ -93,4 +68,25 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        $(function () {
+            $("#table").DataTable({
+                responsive: true, lengthChange: false, autoWidth: false,
+                processing: true,
+                serverSide: true,
+                searching: true,
+                ordering: true,
+                ajax: "{{route('students.new_list_ajax')}}",
+                columns: [
+                    {data: 'id'},
+                    {data: 'first_name'},
+                    {data: 'last_name'},
+                    {data: 'email'},
+                    {data: 'program'},
+                    {data: 'start_date'},
+                    {data: 'action'},
+                ]
+            });
+        });
+    </script>
 @endsection

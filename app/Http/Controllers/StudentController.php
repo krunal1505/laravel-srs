@@ -116,10 +116,9 @@ class StudentController extends Controller
     public function new_list()
     {
         if (Auth::check()) {
-            if (Auth::user()->user_type == 'admin') {
+            /*if (Auth::user()->user_type == 'admin') {
                 $students = Student::leftJoin('programs', 'students.program_id', '=', 'programs.id')
                     ->leftJoin('intakes', 'students.intake_id', '=', 'intakes.id')
-                    /*->leftJoin('users', 'students.created_by', '=', 'users.id')*/
                     ->where('students.status', 'new')
                     ->latest('students.created_at')
                     ->get();
@@ -138,10 +137,90 @@ class StudentController extends Controller
                     ->where('created_by', Auth::user()->id)
                     ->latest('students.created_at')
                     ->get();
-            }
-            return view('students.new_list', compact('students'));
+            }*/
+            return view('students.new_list');
         }
         return redirect("login");
+    }
+
+    public function new_list_ajax(Request $request)
+    {
+        $draw = $request->get('draw');
+        $start = $request->get("start");
+        $rowperpage = $request->get("length");
+
+        $columnIndex_arr = $request->get('order');
+        $columnName_arr = $request->get('columns');
+        $order_arr = $request->get('order');
+        $search_arr = $request->get('search');
+
+        $columnIndex = $columnIndex_arr[0]['column']; // Column index
+        $columnName = $columnName_arr[$columnIndex]['data']; // Column name
+        $columnSortOrder = $order_arr[0]['dir']; // asc or desc
+        $searchValue = $search_arr['value']; // Search value
+
+        if (Auth::user()->user_type == 'admin') {
+            $totalRecords = Student::leftJoin('programs', 'students.program_id', '=', 'programs.id')
+                ->leftJoin('intakes', 'students.intake_id', '=', 'intakes.id')
+                ->where('students.status', 'new')
+                ->count();
+            $totalRecordswithFilter = Student::leftJoin('programs', 'students.program_id', '=', 'programs.id')
+                ->leftJoin('intakes', 'students.intake_id', '=', 'intakes.id')
+                ->where(function ($query) use ($searchValue) {
+                    $query->where('first_name', 'like', '%' . $searchValue . '%')
+                        ->orWhere('last_name', 'like', '%' . $searchValue . '%')
+                        ->orWhere('email', 'like', '%' . $searchValue . '%');
+                })
+                ->where('students.status', 'new')
+                ->where('first_name', 'like', '%' . $searchValue . '%')
+                ->where('last_name', 'like', '%' . $searchValue . '%')
+                ->where('email', 'like', '%' . $searchValue . '%')
+                ->where('students.status', 'new')
+                ->count();
+
+            $records = Student::orderBy($columnName, $columnSortOrder)
+                ->select('students.*', 'program_name', 'start_date')
+                ->leftJoin('programs', 'students.program_id', '=', 'programs.id')
+                ->leftJoin('intakes', 'students.intake_id', '=', 'intakes.id')
+                ->where(function ($query) use ($searchValue) {
+                    $query->where('first_name', 'like', '%' . $searchValue . '%')
+                        ->orWhere('last_name', 'like', '%' . $searchValue . '%')
+                        ->orWhere('email', 'like', '%' . $searchValue . '%');
+                })
+                ->where('students.status', 'new')
+                ->skip($start)
+                ->take($rowperpage)
+                ->get();
+
+            $data_arr = array();
+            $sno = $start + 1;
+            foreach ($records as $record) {
+                $id = $record->id;
+                $first_name = $record->first_name;
+                $last_name = $record->last_name;
+                $email = $record->email;
+                $program_name = $record->program_name;
+                $start_date = $record->start_date;
+                $action = '<a href="'.route('students.new.view',$id).'" class="btn btn-info btn-flat" data-toggle="tooltip"><i class="fa fa-eye"></i></a>';
+                $data_arr[] = array(
+                    "id" => $id,
+                    "first_name" => $first_name,
+                    "last_name" => $last_name,
+                    "email" => $email,
+                    "program" => $program_name,
+                    "start_date" => $start_date,
+                    "action" => $action
+                );
+            }
+            $response = array(
+                "draw" => intval($draw),
+                "iTotalRecords" => $totalRecords,
+                "iTotalDisplayRecords" => $totalRecordswithFilter,
+                "aaData" => $data_arr
+            );
+            echo json_encode($response);
+            exit;
+        }
     }
 
     public function new_view($id)
@@ -264,6 +343,29 @@ class StudentController extends Controller
             return view('students.enrolled_list', compact('students'));
         }
         return redirect("login");
+    }
+
+    public function generate($id)
+    {
+        $html = '<!DOCTYPE html>
+            <html>
+            <head>
+                <title> Letter of Acceptance </title>
+            </head>
+            <body style="margin: 0;">';
+
+//        $html1 = view('admin.orderManagement.label', compact('order','seller_address','total_weight'));
+//        $html .= $html1;
+        // return $pdf->stream();
+        // dd($data);
+        $html .= '<h5>asd</h5>
+            </body>
+            </html>';
+
+        $pdf = \App::make('dompdf.wrapper');
+        // $pdf = PDF::stream('front.mobile.order.invoice', $data);
+        $pdf->loadHTML($html);
+        return $pdf->stream('test.pdf');
     }
 
     public function enrolled_view($id)
