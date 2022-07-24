@@ -201,7 +201,7 @@ class StudentController extends Controller
                 $email = $record->email;
                 $program_name = $record->program_name;
                 $start_date = $record->start_date;
-                $action = '<a href="'.route('students.new.view',$id).'" class="btn btn-info btn-flat" data-toggle="tooltip"><i class="fa fa-eye"></i></a>';
+                $action = '<a href="' . route('students.new.view', $id) . '" class="btn btn-info btn-flat" data-toggle="tooltip"><i class="fa fa-eye"></i></a>';
                 $data_arr[] = array(
                     "id" => $id,
                     "first_name" => $first_name,
@@ -352,13 +352,37 @@ class StudentController extends Controller
             <head>
                 <title> Letter of Acceptance </title>
             </head>
-            <body style="margin: 0;">';
+            <body style="margin: 0;">
+            <h3 style="color: #1F497D; margin-bottom: 0">Trillium Esthetic and Hair Technology College</h3>
+            <small style="margin: 0">989 Derry Road East, Suite 401 <br>
+            Mississauga, L5T 2J8, Canada <br>
+            Tel: (647)-612-5899 Fax: (905)-886-8108</small>
+            <h3 style="color: #1F497D; text-align: center">Letter of Acceptance</h3>
+            <small>PERSONAL INFORMATION</small> <small style="float: right">Date: ' . date("Y-m-d") . '</small>
+            <table border="1px" style="width: 100%;">
+                <tr>
+                    <td style="padding: 5px;"><small>Family Name: </small></td>
+                    <td style="padding: 5px;"><small>Given Name: </small></td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px;"><small>Date of Birth: </small></td>
+                    <td style="padding: 5px;"><small>Student ID No: </small></td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px; border-bottom: 0px; border-left: 0px; border-right: 0px;" colspan="2">
+                    <small>
+                    Certificate d`acceptation du Quebec (CAQ) or Ministere de l`Immigration, Diversite et Inclusion (MIDI) letter <br>
+                    </small>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 0px 5px 5px 5px; border: 0px;"><small>Yes No</small></td>
+                    <td style="padding: 0px 5px 5px 5px; border: 0px;">Expiry: N/A</td>
+                </tr>
+            </table>';
 
-//        $html1 = view('admin.orderManagement.label', compact('order','seller_address','total_weight'));
-//        $html .= $html1;
-        // return $pdf->stream();
-        // dd($data);
-        $html .= '<h5>asd</h5>
+
+        $html .= '
             </body>
             </html>';
 
