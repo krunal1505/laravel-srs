@@ -75,6 +75,8 @@ Route::post('students/new/updateStatus', [StudentController::class, 'new_update_
 Route::get('students/new/{id}/edit', [StudentController::class, 'new_edit'])->name('students.new.edit');
 Route::post('students/new_update/{id}', [StudentController::class, 'new_update'])->name('students.new_update');
 Route::get('students/enrolled', [StudentController::class, 'enrolled_list'])->name('students.enrolled');
+Route::get('students/enrolled_list_ajax', [StudentController::class, 'enrolled_list_ajax'])->name('students.enrolled_list_ajax');
+
 Route::get('students/generate/{id}', [StudentController::class, 'generate'])->name('students.generate');
 Route::get('students/enrolled/{id}/view', [StudentController::class, 'enrolled_view'])->name('students.enrolled.view');
 Route::get('students/enrolled/{id}/edit', [StudentController::class, 'enrolled_edit'])->name('students.enrolled.edit');

@@ -39,15 +39,16 @@
                             </div>
                         @endif
                         <div class="card-header">
-                            <div class="row">
+                            <h3 class="card-title">Students List</h3>
+                            {{--<div class="row">
                                 <div class="col-12">
                                     <h4>Students List</h4>
                                 </div>
-                            </div>
+                            </div>--}}
                         </div>
                         <!-- /.card-header -->
-                        <div class="card-body table-responsive p-0">
-                            <table class="table table-hover text-nowrap">
+                        <div class="card-body">
+                            <table class="table table-bordered table-striped" id="table">
                                 <thead>
                                 <tr>
                                     <th>ID</th>
@@ -60,7 +61,7 @@
                                     <th class="text-right">Actions</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                {{--<tbody>
                                 @foreach($students as $student)
                                     <tr>
                                         <td>{{$loop->index + 1}}</td>
@@ -69,7 +70,7 @@
                                         <td>{{$student->email}}</td>
                                         <td>{{$student->program_name}}</td>
                                         <td>{{$student->start_date}}</td>
-                                        {{--<td>{{$student->first_name}}</td>--}}
+                                        --}}{{--<td>{{$student->first_name}}</td>--}}{{--
                                         <td class="text-right">
                                             <div class="btn-group">
                                                 <a href="{{ URL::route('students.generate', $student->id) }}"
@@ -88,7 +89,7 @@
                                         </td>
                                     </tr>
                                 @endforeach
-                                </tbody>
+                                </tbody>--}}
                             </table>
                         </div>
                         <!-- /.card-body -->
@@ -97,4 +98,25 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        $(function () {
+            $("#table").DataTable({
+                responsive: true, lengthChange: false, autoWidth: false,
+                processing: true,
+                serverSide: true,
+                searching: true,
+                ordering: true,
+                ajax: "{{route('students.enrolled_list_ajax')}}",
+                columns: [
+                    {data: 'id'},
+                    {data: 'first_name'},
+                    {data: 'last_name'},
+                    {data: 'email'},
+                    {data: 'program'},
+                    {data: 'start_date'},
+                    {data: 'action'},
+                ]
+            });
+        });
+    </script>
 @endsection
