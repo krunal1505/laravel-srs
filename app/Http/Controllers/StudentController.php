@@ -347,42 +347,212 @@ class StudentController extends Controller
 
     public function generate($id)
     {
+        $student = Student::leftJoin('programs', 'students.program_id', '=', 'programs.id')
+            ->leftJoin('intakes', 'students.intake_id', '=', 'intakes.id')
+            ->where('students.id', $id)
+            ->get();
+//        dd($student[0]);
         $html = '<!DOCTYPE html>
             <html>
             <head>
                 <title> Letter of Acceptance </title>
             </head>
             <body style="margin: 0;">
-            <h3 style="color: #1F497D; margin-bottom: 0">Trillium Esthetic and Hair Technology College</h3>
+            <h4 style="color: #1F497D; margin-bottom: 0;font-size: medium;"><b>Trillium Esthetic and Hair Technology College</b></h4>
             <small style="margin: 0">989 Derry Road East, Suite 401 <br>
             Mississauga, L5T 2J8, Canada <br>
             Tel: (647)-612-5899 Fax: (905)-886-8108</small>
-            <h3 style="color: #1F497D; text-align: center">Letter of Acceptance</h3>
+            <p style="color: #1F497D; text-align: center; font-size: medium;"><b>Letter of Acceptance</b></p>
             <small>PERSONAL INFORMATION</small> <small style="float: right">Date: ' . date("Y-m-d") . '</small>
-            <table border="1px" style="width: 100%;">
+            <table border="1px" style="width: 100%; font-size: x-small;">
                 <tr>
-                    <td style="padding: 5px;"><small>Family Name: </small></td>
-                    <td style="padding: 5px;"><small>Given Name: </small></td>
+                    <td style="padding: 5px;" colspan="2"><small>Family Name: '.$student[0]->last_name.'</small></td>
+                    <td style="padding: 5px;" colspan="2"><small>Given Name: '.$student[0]->first_name.'</small></td>
                 </tr>
                 <tr>
-                    <td style="padding: 5px;"><small>Date of Birth: </small></td>
-                    <td style="padding: 5px;"><small>Student ID No: </small></td>
+                    <td style="padding: 5px;" colspan="2"><small>Date of Birth: '.$student[0]->dob.'</small></td>
+                    <td style="padding: 5px;" colspan="2"><small>Student ID No: </small></td>
                 </tr>
                 <tr>
-                    <td style="padding: 5px; border-bottom: 0px; border-left: 0px; border-right: 0px;" colspan="2">
+                    <td style="padding: 5px; border-bottom: 0px; border-left: 0px; border-right: 0px;" colspan="4">
                     <small>
                     Certificate d`acceptation du Quebec (CAQ) or Ministere de l`Immigration, Diversite et Inclusion (MIDI) letter <br>
                     </small>
                     </td>
                 </tr>
                 <tr>
-                    <td style="padding: 0px 5px 5px 5px; border: 0px;"><small>Yes No</small></td>
+                    <td style="padding: 0px 5px 5px 5px; border: 0px;">
+                        <small>
+                            <input style="" type="checkbox"> Yes
+                            <input style="" type="checkbox" checked="checked"> No
+                        </small>
+                    </td>
                     <td style="padding: 0px 5px 5px 5px; border: 0px;">Expiry: N/A</td>
                 </tr>
-            </table>';
-
-
-        $html .= '
+                <tr>
+                    <td style="padding: 5px;"><small>Student Full Mailing Address </small></td>
+                    <td style="padding: 5px;"><small>PO Box: </small></td>
+                    <td style="padding: 5px;"><small>Apt/Unit: </small></td>
+                    <td style="padding: 5px;"><small>Street No: </small></td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px;" colspan="2"><small>Street Name: '.$student[0]->address1.'</small></td>
+                    <td style="padding: 5px;"><small>City: '.$student[0]->city.'</small></td>
+                    <td style="padding: 5px;"><small>Province: '.$student[0]->state_id.'</small></td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px;" colspan="2"><small>Country: '.$student[0]->country_id.'</small></td>
+                    <td style="padding: 5px;" colspan="2"><small>Postal/Zip Code: '.$student[0]->postal_code.'</small></td>
+                </tr>
+            </table>
+            <br>
+            <small>INSTITUTIONAL INFORMATION</small>
+            <table border="1px" style="width: 100%; font-size: x-small;">
+                <tr>
+                    <td style="padding: 5px;" colspan="2">
+                        <small>Full name of institution: <br>Trillium Esthetics and Hair Technology College</small>
+                    </td>
+                    <td style="padding: 5px;" colspan="2">
+                        <small>Designated learning institution number: O19332628162</small>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px;" colspan="4"><small>Address of institution </small></td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px;"><small>P.O. Box</small></td>
+                    <td style="padding: 5px;"><small>Street no: 989</small></td>
+                    <td style="padding: 5px;" colspan="2">
+                        <small>Street Name: Derry Road East, Suite 401</small>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px;"><small>City: Mississauga</small></td>
+                    <td style="padding: 5px;"><small>Province: ON</small></td>
+                    <td style="padding: 5px;" colspan="2">
+                        <small>Postal Code: L5T 2J8</small>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px;"><small>Telephone: <br>(905)-882-0012</small></td>
+                    <td style="padding: 5px;"><small>Fax Number: <br>(905)-886-8108</small></td>
+                    <td style="padding: 5px;" colspan="2">
+                        <small>
+                            Type of School/Institute
+                            <input type="checkbox"> Public
+                            <input type="checkbox" checked="checked"> Private
+                        </small>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px;" colspan="2"><small>Website: www.trilliumestheticsschool.ca </small></td>
+                    <td style="padding: 5px;" colspan="2"><small>Email: info@trilliumestheticsschool.ca</small></td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px;"><small>Name of Contact: <br>Kiranvir Raol</small></td>
+                    <td style="padding: 5px;"><small>Position: Administrator</small></td>
+                    <td style="padding: 5px;"><small>Telephone Number: <br>(647)-720-5799</small></td>
+                    <td style="padding: 5px;"><small>Extension: </small></td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px;"><small>Name of Alternate Contact: <br>Arshdeep Kaur</small></td>
+                    <td style="padding: 5px;"><small>Position: Coordinator</small></td>
+                    <td style="padding: 5px;"><small>Telephone Number: <br>(647)-612-5899</small></td>
+                    <td style="padding: 5px;"><small>Extension: </small></td>
+                </tr>
+            </table>
+            <br>
+            <small>PROGRAM INFORMATION</small>
+            <table border="1px" style="width: 100%; font-size: x-small;">
+                <tr>
+                    <td style="padding: 5px;">
+                        <small>
+                            Academic Status: <br>
+                            <input type="checkbox" checked="checked"> Full Time
+                            <input type="checkbox">  Part-Time
+                        </small>
+                    </td>
+                    <td style="padding: 5px;">
+                        <small>Hours of Institution Per week: <br>20 hours</small>
+                    </td>
+                    <td style="padding: 5px;">
+                        <small>Field/Program of Study: <br>Esthetics Program</small>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px;">
+                        <small>Level of Study: Diploma</small>
+                    </td>
+                    <td style="padding: 5px;" colspan="2">
+                        <small>
+                            Type of Training Program:
+                            <input type="checkbox" checked="checked"> Vocational
+                            <input type="checkbox"> Academic
+                            <input type="checkbox"> Professional
+                        </small>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px;">
+                        <small>
+                            Exchange Program:
+                            <input type="checkbox"> Yes
+                            <input type="checkbox" checked="checked"> No
+                        </small>
+                    </td>
+                    <td style="padding: 5px;" colspan="2">
+                        <small>
+                            Estimated Tuition Fees for Academic Year: $9000<br>
+                            Fees prepaid:
+                            <input type="checkbox"> Yes
+                            <input type="checkbox" checked="checked"> No
+                        </small>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px; width: 50%;">
+                        <small>
+                            Scholarship/Teaching assistantship/Other financial aid: <br>
+                            <input type="checkbox"> Yes. Specify: &nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="checkbox" checked="checked"> No
+                        </small>
+                    </td>
+                    <td style="padding: 5px;">
+                        <small>
+                            Internship/Work Permit: <br>
+                            <input type="checkbox"> Yes
+                            <input type="checkbox" checked="checked"> No
+                        </small>
+                    </td>
+                    <td style="padding: 5px;">
+                        <small>
+                            Length of Program: <br>
+                            1 Year
+                        </small>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px;" colspan="3">
+                        <small>Conditions of acceptance specified as clearly as possible: N/A</small>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px; width: 50%;">
+                        <small>
+                            Length of Program (YYYY/MM/DD): <br>
+                            Start Date: 2022/01/01 End Date: 2022/01/01
+                        </small>
+                    </td>
+                    <td style="padding: 5px;" colspan="2">
+                        <small>
+                            Expiration of letter of acceptance (YYYY/MM/DD)
+                        </small>
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <small>Signature of institution representative (e.g., Registrar): ______________________________________________________</small><br>
+            <small>Printed name of institution representative: </small>
             </body>
             </html>';
 
