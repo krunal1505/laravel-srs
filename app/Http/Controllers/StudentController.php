@@ -220,6 +220,137 @@ class StudentController extends Controller
             );
             echo json_encode($response);
             exit;
+        } else if (Auth::user()->user_type == 'employee' || Auth::user()->user_type == 'sub_admin') {
+            $totalRecords = Student::leftJoin('programs', 'students.program_id', '=', 'programs.id')
+                ->leftJoin('intakes', 'students.intake_id', '=', 'intakes.id')
+                ->where('students.status', 'new')
+                ->where('is_private', 'no')
+                ->count();
+            $totalRecordswithFilter = Student::leftJoin('programs', 'students.program_id', '=', 'programs.id')
+                ->leftJoin('intakes', 'students.intake_id', '=', 'intakes.id')
+                ->where(function ($query) use ($searchValue) {
+                    $query->where('first_name', 'like', '%' . $searchValue . '%')
+                        ->orWhere('last_name', 'like', '%' . $searchValue . '%')
+                        ->orWhere('email', 'like', '%' . $searchValue . '%');
+                })
+                ->where('students.status', 'new')
+                ->where('is_private', 'no')
+                ->where('first_name', 'like', '%' . $searchValue . '%')
+                ->where('last_name', 'like', '%' . $searchValue . '%')
+                ->where('email', 'like', '%' . $searchValue . '%')
+                ->where('students.status', 'new')
+                ->count();
+
+            $records = Student::orderBy($columnName, $columnSortOrder)
+                ->select('students.*', 'program_name', 'start_date')
+                ->leftJoin('programs', 'students.program_id', '=', 'programs.id')
+                ->leftJoin('intakes', 'students.intake_id', '=', 'intakes.id')
+                ->where(function ($query) use ($searchValue) {
+                    $query->where('first_name', 'like', '%' . $searchValue . '%')
+                        ->orWhere('last_name', 'like', '%' . $searchValue . '%')
+                        ->orWhere('email', 'like', '%' . $searchValue . '%');
+                })
+                ->where('students.status', 'new')
+                ->where('is_private', 'no')
+                ->skip($start)
+                ->take($rowperpage)
+                ->get();
+
+            $data_arr = array();
+            $sno = $start + 1;
+            foreach ($records as $record) {
+                $id = $record->id;
+                $first_name = $record->first_name;
+                $last_name = $record->last_name;
+                $email = $record->email;
+                $program_name = $record->program_name;
+                $start_date = $record->start_date;
+                $action = '<a href="' . route('students.new.view', $id) . '" class="btn btn-info btn-flat" data-toggle="tooltip"><i class="fa fa-eye"></i></a>';
+                $data_arr[] = array(
+                    "id" => $id,
+                    "first_name" => $first_name,
+                    "last_name" => $last_name,
+                    "email" => $email,
+                    "program" => $program_name,
+                    "start_date" => $start_date,
+                    "action" => $action
+                );
+            }
+            $response = array(
+                "draw" => intval($draw),
+                "iTotalRecords" => $totalRecords,
+                "iTotalDisplayRecords" => $totalRecordswithFilter,
+                "aaData" => $data_arr
+            );
+            echo json_encode($response);
+            exit;
+        } else {
+            $totalRecords = Student::leftJoin('programs', 'students.program_id', '=', 'programs.id')
+                ->leftJoin('intakes', 'students.intake_id', '=', 'intakes.id')
+                ->where('students.status', 'new')
+                ->where('is_private', 'no')
+                ->where('created_by', Auth::user()->id)
+                ->count();
+            $totalRecordswithFilter = Student::leftJoin('programs', 'students.program_id', '=', 'programs.id')
+                ->leftJoin('intakes', 'students.intake_id', '=', 'intakes.id')
+                ->where(function ($query) use ($searchValue) {
+                    $query->where('first_name', 'like', '%' . $searchValue . '%')
+                        ->orWhere('last_name', 'like', '%' . $searchValue . '%')
+                        ->orWhere('email', 'like', '%' . $searchValue . '%');
+                })
+                ->where('students.status', 'new')
+                ->where('is_private', 'no')
+                ->where('created_by', Auth::user()->id)
+                ->where('first_name', 'like', '%' . $searchValue . '%')
+                ->where('last_name', 'like', '%' . $searchValue . '%')
+                ->where('email', 'like', '%' . $searchValue . '%')
+                ->where('students.status', 'new')
+                ->count();
+
+            $records = Student::orderBy($columnName, $columnSortOrder)
+                ->select('students.*', 'program_name', 'start_date')
+                ->leftJoin('programs', 'students.program_id', '=', 'programs.id')
+                ->leftJoin('intakes', 'students.intake_id', '=', 'intakes.id')
+                ->where(function ($query) use ($searchValue) {
+                    $query->where('first_name', 'like', '%' . $searchValue . '%')
+                        ->orWhere('last_name', 'like', '%' . $searchValue . '%')
+                        ->orWhere('email', 'like', '%' . $searchValue . '%');
+                })
+                ->where('students.status', 'new')
+                ->where('is_private', 'no')
+                ->where('created_by', Auth::user()->id)
+                ->skip($start)
+                ->take($rowperpage)
+                ->get();
+
+            $data_arr = array();
+            $sno = $start + 1;
+            foreach ($records as $record) {
+                $id = $record->id;
+                $first_name = $record->first_name;
+                $last_name = $record->last_name;
+                $email = $record->email;
+                $program_name = $record->program_name;
+                $start_date = $record->start_date;
+                $action = '<a href="' . route('students.new.view', $id) . '" class="btn btn-info btn-flat" data-toggle="tooltip"><i class="fa fa-eye"></i></a>';
+                $data_arr[] = array(
+                    "id" => $id,
+                    "first_name" => $first_name,
+                    "last_name" => $last_name,
+                    "email" => $email,
+                    "program" => $program_name,
+                    "start_date" => $start_date,
+                    "action" => $action
+                );
+            }
+            $response = array(
+                "draw" => intval($draw),
+                "iTotalRecords" => $totalRecords,
+                "iTotalDisplayRecords" => $totalRecordswithFilter,
+                "aaData" => $data_arr
+            );
+            echo json_encode($response);
+            exit;
         }
     }
 
